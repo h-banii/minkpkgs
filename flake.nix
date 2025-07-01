@@ -48,26 +48,47 @@
 
       };
 
+      lib = {
+        mkQemuIso =
+          {
+            iso,
+            withUefi ? false,
+          }:
+          pkgs.writeShellScriptBin "qemu-system-x86_64-${distroName}" ''
+            ${pkgs.qemu}/bin/qemu-system-x86_64 \
+              ${if withUefi then "-bios ${pkgs.OVMF.fd}/FV/OVMF.fd" else ""} \
+              -cdrom $(echo ${iso}/iso/*.iso) \
+              $QEMU_OPTS \
+              "$@"
+          '';
+      };
+
       # TODO: Separate livecd and default system configs
       # (I don't think anyone would use it)
       livecd =
         let
+          inherit (self.lib) mkQemuIso;
           livecdSystem = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
               inherit inputs distroName;
               assets = self.assets;
               greeter = self.packages.${system}.greeter;
-              # isoWithCompression = false; # for faster build, but bigger iso
+              isoWithCompression = false; # for faster build, but bigger iso
             };
             modules = [
               ./host/livecd
             ];
           };
+          iso = livecdSystem.config.system.build.isoImage;
         in
         {
           vm = livecdSystem.config.system.build.vm;
-          iso = livecdSystem.config.system.build.isoImage;
+          inherit iso;
+          iso-vm = mkQemuIso {
+            inherit iso;
+            withUefi = true;
+          };
         };
 
       assets = pkgs.callPackage ./assets { };
