@@ -34,6 +34,9 @@
           "$mod, mouse:272, movewindow"
           "$mod, mouse:273, resizewindow"
         ];
+        decoration = {
+          screen_shader = "${./shader.frag}";
+        };
       };
       services.hyprpaper = {
         enable = true;
