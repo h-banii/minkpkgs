@@ -29,6 +29,9 @@
           hyprlandConfig = pkgs.writeText "hyprland-greeter.conf" ''
             monitor=,preferred,auto,1
             exec-once = ${lib.getExe greeter}
+            decoration {
+              screen_shader = ${./shader.frag}
+            }
           '';
         in
         {
