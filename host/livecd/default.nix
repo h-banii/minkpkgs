@@ -2,6 +2,7 @@
   pkgs,
   lib,
   greeter,
+  assets,
   distroName ? "NixOS",
   ...
 }:
@@ -30,7 +31,7 @@
             monitor=,preferred,auto,1
             exec-once = ${lib.getExe greeter}
             decoration {
-              screen_shader = ${./shader.frag}
+              screen_shader = ${assets.shader}
             }
           '';
         in

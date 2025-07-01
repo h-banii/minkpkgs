@@ -8,4 +8,5 @@
     url = "https://yt3.ggpht.com/RIWEh-tuhMXXExCZ3_BKK0u0lw9GAek4SZk_sMxQksk_utddEBuf-4BUDC8ORScsbnuk6VQ4dA=s480-c-k-c0x00ffffff-no-rj";
     hash = "sha256-DWoBl3PtxI3H8b9sKo0NP86I/TrQYRsa5sYJ+l8a0gU=";
   };
+  shader = ./shader.frag;
 }
