@@ -4,8 +4,6 @@
 
   home.packages = with pkgs; [
     foot
-    firefox
-    obs-studio
   ];
 
   wayland.windowManager.hyprland.enable = true;
@@ -51,5 +49,17 @@
         ",${assets.wallpaper}"
       ];
     };
+  };
+
+  programs.firefox.enable = true;
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-pipewire-audio-capture
+      obs-vaapi
+      obs-gstreamer
+      obs-vkcapture
+    ];
   };
 }
