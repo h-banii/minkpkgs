@@ -38,6 +38,9 @@
     decoration = {
       rounding = 10;
       screen_shader = "${assets.shader}";
+      active_opacity = 0.95;
+      inactive_opacity = 0.85;
+      fullscreen_opacity = 1.00;
     };
   };
 
