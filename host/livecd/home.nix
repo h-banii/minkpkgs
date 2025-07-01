@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, assets, ... }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -34,6 +34,15 @@
           "$mod, mouse:272, movewindow"
           "$mod, mouse:273, resizewindow"
         ];
+      };
+      services.hyprpaper = {
+        enable = true;
+        settings = {
+          preload = [ "${assets.wallpaper}" ];
+          wallpaper = [
+            ",${assets.wallpaper}"
+          ];
+        };
       };
     };
 
