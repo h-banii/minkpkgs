@@ -20,7 +20,11 @@
     { pkgs, ... }:
     {
       home.stateVersion = "24.05";
-      programs.kitty.enable = true;
+
+      home.packages = with pkgs; [
+        foot
+      ];
+
       wayland.windowManager.hyprland.enable = true;
       wayland.windowManager.hyprland.settings = {
         "$mod" = "SUPER";
@@ -29,6 +33,7 @@
         ];
         bind = [
           "$mod, C, killactive"
+          "$mod, T, foot"
         ];
         bindm = [
           "$mod, mouse:272, movewindow"
@@ -38,6 +43,7 @@
           screen_shader = "${./shader.frag}";
         };
       };
+
       services.hyprpaper = {
         enable = true;
         settings = {

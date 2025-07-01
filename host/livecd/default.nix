@@ -40,9 +40,6 @@
   programs.uwsm.enable = true;
   programs.hyprland.enable = true;
   programs.hyprland.withUWSM = true;
-  environment.systemPackages = with pkgs; [
-    foot
-  ];
 
   fonts.packages = with pkgs; [
     mplus-outline-fonts.githubRelease
