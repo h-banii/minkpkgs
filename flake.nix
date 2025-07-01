@@ -25,10 +25,7 @@
           let
             config = pkgs.writeText "h-banii.greeter-config" (
               builtins.toJSON {
-                wallpaper = pkgs.fetchurl {
-                  url = "https://static-cdn.jtvnw.net/jtv_user_pictures/6a6e811c-aca8-4bde-a3f7-ea3f2d5fca55-profile_banner-480.png";
-                  hash = "sha256-zB0N6c+wJbFZwIqUDEIBAyhDSoaefmrWDT5L2EE2BrQ=";
-                };
+                wallpaper = self.assets.wallpaper;
                 icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
                 loading_icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
                 font-family = "M PLUS 2";
@@ -59,6 +56,7 @@
             specialArgs = {
               distroName = "MikanOS";
               inherit inputs;
+              assets = self.assets;
               greeter = self.packages.${system}.greeter;
               # isoWithCompression = false; # for faster build, but bigger iso
             };
@@ -71,5 +69,7 @@
           vm = livecdSystem.config.system.build.vm;
           iso = livecdSystem.config.system.build.isoImage;
         };
+
+      assets = pkgs.callPackage ./assets { };
     };
 }
