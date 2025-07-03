@@ -2,6 +2,8 @@
 
 NixOS configuration files for MikanOS.
 
+https://github.com/user-attachments/assets/8faacc68-b6c7-47a0-92ca-e75077e7fb54
+
 ## TODO
 
 - [x] LiveCD config
