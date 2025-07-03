@@ -7,6 +7,7 @@ https://github.com/user-attachments/assets/8faacc68-b6c7-47a0-92ca-e75077e7fb54
 ## TODO
 
 - [x] LiveCD config
+- [ ] Open VTube Studio from steam (this one should be easy)
 - [ ] Open source my greeter or make another one from scratch
 - [ ] Custom Mikan cursor
 - [ ] Custom Mikan graphical shell
