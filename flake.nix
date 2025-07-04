@@ -74,7 +74,7 @@
               inherit inputs distroName;
               assets = self.assets;
               greeter = self.packages.${system}.greeter;
-              isoWithCompression = false; # for faster build, but bigger iso
+              isoWithCompression = true;
             };
             modules = [
               ./host/livecd
