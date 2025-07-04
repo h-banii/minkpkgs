@@ -1,7 +1,6 @@
 precision lowp float;
 
 #define SCALE 1.25
-#define HARD_THRESHOLD false
 const vec3 COLOR = vec3(1.0, 0.435, 0.); // orange
 
 varying vec2 v_texcoord;
@@ -23,12 +22,6 @@ vec4 transform(vec4 pixel) {
   float max_cmp = max_vec4(pixel);
   float min_cmp = min_vec4(pixel);
 
-  // Hard threshold
-  if (HARD_THRESHOLD && (max_cmp - min_cmp) < 0.1) {
-    return pixel;
-  }
-
-  // Soft threshold
   float scale = min(SCALE * (max_cmp - min_cmp), 1.0);
 
   pixel.rgb = step(pixel.rgb, scale);
