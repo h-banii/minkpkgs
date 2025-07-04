@@ -54,15 +54,15 @@
       "locked": {
         "lastModified": 1739484414,
         "narHash": "sha256-kB3hipI6G6OAhoNyrTsDjI0EQTHQsslaCM7FVXHfQgE=",
-        "ref": "refs/heads/master",
+        "owner": "h-banii",
+        "repo": "astal-greeter",
         "rev": "820d42d3c5374d1ab9fa21ea936d2a4c6fcdd593",
-        "revCount": 89,
-        "type": "git",
-        "url": "ssh://git@github.com/h-banii/greeter-dots.git"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/h-banii/greeter-dots.git"
+        "owner": "h-banii",
+        "repo": "astal-greeter",
+        "type": "github"
       }
     },
     "home-manager": {

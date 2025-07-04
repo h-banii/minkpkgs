@@ -7,7 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     greeter = {
-      url = "git+ssh://git@github.com/h-banii/greeter-dots.git";
+      url = "github:h-banii/astal-greeter";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
   };
