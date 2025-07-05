@@ -23,7 +23,7 @@
       inherit (nixpkgs) lib;
       forAllSystems = lib.genAttrs (import systems);
       pkgsFor = forAllSystems (system: nixpkgs.legacyPackages.${system});
-      assetsFor = forAllSystems (system: self.assets.${system});
+      assetsFor = forAllSystems (system: self.packages.${system}.assets);
       distroName = "MikanOS";
     in
     {
@@ -31,7 +31,7 @@
         system:
         let
           pkgs = pkgsFor.${system};
-          assets = assetsFor.${system};
+          assets = pkgs.callPackage ./assets { };
         in
         {
           greeter =
@@ -57,6 +57,7 @@
               export H_BANII_GREET_CONFIG=${config} # TODO: Use wrapProgram
               exec ${greeter}
             '';
+          inherit assets;
         }
       );
 
@@ -111,7 +112,5 @@
           };
         }
       );
-
-      assets = forAllSystems (system: pkgsFor.${system}.callPackage ./assets { });
     };
 }
