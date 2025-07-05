@@ -8,21 +8,44 @@ This project requires [nix](https://nixos.org/) with **flakes** enabled.
 - <https://wiki.nixos.org/wiki/Flakes#Setup>
 :::
 
-## Install on non-NixOS distros
+::: warning
+Commands in this page were not tested (yet)
+:::
 
-Use your package manager
+## Install nix on non-NixOS distros
+
+### From your package manager
+
+::: details Arch
 
 ```sh
 pacman -Syu nix
 ```
 
-Or install from nixos.org
+:::
+
+### From nixos.org
 
 ```sh
-curl --proto '=https' --tlsv1.2 -sSfL https://nixos.org/nix/install -o nix-install.sh
-less nix-install.sh         # read the script before executing it
-./nix-install.sh --daemon   # multi-user installation
+curl --proto '=https' --tlsv1.2 -sSfL \
+    https://nixos.org/nix/install -o nix-install.sh
 ```
+
+Read the script before executing it
+
+```sh
+less nix-install.sh
+```
+
+Do the multi-user installation
+
+```sh
+./nix-install.sh --daemon
+```
+
+::: info Reference
+<https://nixos.org/download/>
+:::
 
 ## Enable `nix command` and `flakes`
 
