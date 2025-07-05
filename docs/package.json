@@ -4,9 +4,9 @@
   "description": "Web documentation for MikanOS",
   "main": " ",
   "scripts": {
-    "dev": "vitepress dev src",
-    "build": "vitepress build src",
-    "preview": "vitepress preview src",
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview",
     "format:js": "prettier . --write",
     "lint:md": "markdownlint-cli2 ./src/**/*.md --fix"
   },

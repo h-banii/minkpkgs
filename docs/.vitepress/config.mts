@@ -31,4 +31,5 @@ export default defineConfig({
       { icon: "github", link: "https://github.com/h-banii/MikanOS" },
     ],
   },
+  srcDir: 'src',
 });
