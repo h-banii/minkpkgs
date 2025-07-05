@@ -23,7 +23,7 @@
       inherit (nixpkgs) lib;
       forAllSystems = lib.genAttrs (import systems);
       pkgsFor = forAllSystems (system: nixpkgs.legacyPackages.${system});
-      assetsFor = forAllSystems (system: self.packages.${system}.assets);
+      assetsFor = forAllSystems (system: pkgsFor.${system}.callPackage ./assets { });
       distroName = "MikanOS";
     in
     {
@@ -31,11 +31,9 @@
         system:
         let
           pkgs = pkgsFor.${system};
-          assets = pkgs.callPackage ./assets { };
+          assets = assetsFor.${system};
         in
         {
-          inherit assets;
-
           greeter =
             let
               config = pkgs.writeText "h-banii.greeter-config" (
@@ -59,31 +57,39 @@
               export H_BANII_GREET_CONFIG=${config} # TODO: Use wrapProgram
               exec ${greeter}
             '';
-
-          livecd =
-            let
-              livecdSystem = lib.nixosSystem {
-                inherit system;
-                specialArgs = {
-                  inherit inputs distroName;
-                  assets = assetsFor.${system};
-                  greeter = self.packages.${system}.greeter;
-                  isoWithCompression = true;
-                };
-                modules = [
-                  ./host/livecd
-                ];
-              };
-            in
-            livecdSystem.config.system.build
-            // {
-              isoVm = pkgs.callPackage self.lib.mkIsoVm {
-                iso = self.packages.${system}.livecd.isoImage;
-                withUefi = true;
-              };
-            };
         }
+        // builtins.listToAttrs (
+          lib.lists.forEach [
+            "logo"
+            "wallpaper"
+          ] (name: lib.attrsets.nameValuePair ("assets-" + name) assets.${name})
+        )
       );
+
+      livecd =
+        let
+          system = "x86_64-linux";
+          pkgs = pkgsFor.${system};
+          livecdSystem = lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit inputs distroName;
+              assets = assetsFor.${system};
+              greeter = self.packages.${system}.greeter;
+              isoWithCompression = true;
+            };
+            modules = [
+              ./host/livecd
+            ];
+          };
+        in
+        livecdSystem.config.system.build
+        // {
+          isoVm = pkgs.callPackage self.lib.mkIsoVm {
+            iso = self.packages.${system}.livecd.isoImage;
+            withUefi = true;
+          };
+        };
 
       lib = {
         mkIsoVm =
