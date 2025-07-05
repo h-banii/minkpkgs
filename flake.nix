@@ -58,23 +58,17 @@
               exec ${greeter}
             '';
         }
-        // builtins.listToAttrs (
-          lib.lists.forEach [
-            "logo"
-            "wallpaper"
-          ] (name: lib.attrsets.nameValuePair ("assets-" + name) assets.${name})
-        )
       );
 
-      livecd =
+      legacyPackages = forAllSystems (
+        system:
         let
-          system = "x86_64-linux";
           pkgs = pkgsFor.${system};
+          assets = assetsFor.${system};
           livecdSystem = lib.nixosSystem {
             inherit system;
             specialArgs = {
-              inherit inputs distroName;
-              assets = assetsFor.${system};
+              inherit inputs distroName assets;
               greeter = self.packages.${system}.greeter;
               isoWithCompression = true;
             };
@@ -83,13 +77,16 @@
             ];
           };
         in
-        livecdSystem.config.system.build
-        // {
-          isoVm = pkgs.callPackage self.lib.mkIsoVm {
-            iso = self.packages.${system}.livecd.isoImage;
-            withUefi = true;
+        {
+          livecd = livecdSystem.config.system.build // {
+            isoVm = pkgs.callPackage self.lib.mkIsoVm {
+              iso = self.packages.${system}.livecd.isoImage;
+              withUefi = true;
+            };
           };
-        };
+          inherit assets;
+        }
+      );
 
       lib = {
         mkIsoVm =
