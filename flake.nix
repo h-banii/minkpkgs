@@ -109,6 +109,24 @@
           '';
       };
 
+      checks = forAllSystems (
+        system:
+        let
+          pkgs = pkgsFor.${system};
+          assets = assetsFor.${system};
+        in
+        {
+          shader =
+            pkgs.runCommandLocal "mikan-check-shader"
+              {
+                nativeBuildInputs = [ pkgs.glslang ];
+              }
+              ''
+                glslangValidator ${assets.shader} >$out
+              '';
+        }
+      );
+
       formatter = forAllSystems (system: pkgsFor.${system}.nixfmt-tree);
     };
 }
