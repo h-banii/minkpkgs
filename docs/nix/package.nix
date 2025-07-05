@@ -10,9 +10,9 @@ buildNpmPackage {
   version = "1.0.0";
 
   src = nix-gitignore.gitignoreSourcePure [
-    ../../.gitignore
     ../.gitignore
-    "README.md"
+    "result\n"
+    "README.md\n"
     "flake.*\n"
     "nix\n"
   ] (lib.cleanSource ../.);

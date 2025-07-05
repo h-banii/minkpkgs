@@ -10,6 +10,7 @@
       url = "github:h-banii/astal-greeter";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
+    docs.url = "path:docs";
   };
 
   outputs =
@@ -57,6 +58,7 @@
               export H_BANII_GREET_CONFIG=${config} # TODO: Use wrapProgram
               exec ${greeter}
             '';
+          docs = inputs.docs.packages.${system}.default;
         }
       );
 
