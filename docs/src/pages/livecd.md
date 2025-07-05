@@ -20,7 +20,9 @@ nix build github:h-banii/MikanOS#livecd.isoImage
 Write the iso to an usb stick (≥4GB)
 
 ```sh
-dd bs=4M conv=fsync oflag=direct status=progress if=./result/iso/MikanOS.iso of=/dev/path-to-usb-flash-drive
+dd bs=4M conv=fsync oflag=direct status=progress \
+    if=./result/iso/MikanOS.iso \
+    of=/dev/path-to-usb-flash-drive
 ```
 
 > [!IMPORTANT]
