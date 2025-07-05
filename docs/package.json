@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "vitepress dev src",
     "build": "vitepress build src",
-    "preview": "vitepress preview src"
+    "preview": "vitepress preview src",
+    "format:js": "prettier . --write"
   },
   "author": "h-banii",
   "license": "MIT",
   "devDependencies": {
+    "prettier": "~3.6.2",
     "vitepress": "~1.6.3",
     "vue": "~3.5.17"
   }
