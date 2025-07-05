@@ -25,7 +25,10 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+      { icon: "twitch", link: "https://www.twitch.tv/mikanthemink" },
+      { icon: "youtube", link: "https://www.youtube.com/@MikanTheMink" },
+      { icon: "twitter", link: "https://www.twitter.com/MikanTheMink" },
+      { icon: "github", link: "https://github.com/h-banii/MikanOS" },
     ],
   },
 });
