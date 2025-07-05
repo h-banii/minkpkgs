@@ -62,8 +62,7 @@
 
           livecd =
             let
-              inherit (self.lib.${system}) mkQemuIso;
-              livecdSystem = nixpkgs.lib.nixosSystem {
+              livecdSystem = lib.nixosSystem {
                 inherit system;
                 specialArgs = {
                   inherit inputs distroName;
@@ -75,12 +74,11 @@
                   ./host/livecd
                 ];
               };
-              iso = livecdSystem.config.system.build.isoImage;
             in
-            {
+            rec {
               vm = livecdSystem.config.system.build.vm;
-              inherit iso;
-              iso-vm = mkQemuIso {
+              iso = livecdSystem.config.system.build.isoImage;
+              iso-vm = pkgs.callPackage self.lib.mkQemuIso {
                 inherit iso;
                 withUefi = true;
               };
@@ -88,26 +86,22 @@
         }
       );
 
-      # TODO: Extend nixpkgs.lib
-      lib = forAllSystems (
-        system:
-        let
-          pkgs = pkgsFor.${system};
-        in
-        {
-          mkQemuIso =
-            {
-              iso,
-              withUefi ? false,
-            }:
-            pkgs.writeShellScriptBin "qemu-system-x86_64-${distroName}" ''
-              ${pkgs.qemu}/bin/qemu-system-x86_64 \
-                ${if withUefi then "-bios ${pkgs.OVMF.fd}/FV/OVMF.fd" else ""} \
-                -cdrom $(echo ${iso}/iso/*.iso) \
-                $QEMU_OPTS \
-                "$@"
-            '';
-        }
-      );
+      lib = {
+        mkQemuIso =
+          {
+            writeShellScriptBin,
+            qemu,
+            OVMF,
+            iso,
+            withUefi ? false,
+          }:
+          writeShellScriptBin "qemu-system-x86_64-${distroName}" ''
+            ${qemu}/bin/qemu-system-x86_64 \
+              ${if withUefi then "-bios ${OVMF.fd}/FV/OVMF.fd" else ""} \
+              -cdrom $(echo ${iso}/iso/*.iso) \
+              $QEMU_OPTS \
+              "$@"
+          '';
+      };
     };
 }
