@@ -1,0 +1,17 @@
+{
+  "name": "mikan-docs",
+  "version": "1.0.0",
+  "description": "Web documentation for MikanOS",
+  "main": " ",
+  "scripts": {
+    "dev": "vitepress dev src",
+    "build": "vitepress build src",
+    "preview": "vitepress preview src"
+  },
+  "author": "h-banii",
+  "license": "MIT",
+  "devDependencies": {
+    "vitepress": "~1.6.3",
+    "vue": "~3.5.17"
+  }
+}
