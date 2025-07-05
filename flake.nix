@@ -13,66 +13,86 @@
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      systems,
+      ...
+    }@inputs:
     let
       inherit (nixpkgs) lib;
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      forAllSystems = lib.genAttrs (import systems);
+      pkgsFor = forAllSystems (system: nixpkgs.legacyPackages.${system});
+      assetsFor = forAllSystems (system: self.assets.${system});
       distroName = "MikanOS";
     in
     {
-      packages.${system} = {
-        greeter =
-          let
-            config = pkgs.writeText "h-banii.greeter-config" (
-              builtins.toJSON {
-                wallpaper = self.assets.wallpaper;
-                icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                loading_icon = self.assets.logo;
-                font-family = "M PLUS 2";
-                sessions = [
-                  {
-                    name = "Hyprland";
-                    cmd = "uwsm start hyprland-uwsm.desktop";
-                  }
-                ];
-                vendor_name = distroName;
-              }
-            );
-            greeter = lib.getExe inputs.greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
-          in
-          pkgs.writeShellScriptBin "greeterWrapped" ''
-            export H_BANII_GREET_CONFIG=${config} # TODO: Use wrapProgram
-            exec ${greeter}
-          '';
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = pkgsFor.${system};
+          assets = assetsFor.${system};
+        in
+        {
+          greeter =
+            let
+              config = pkgs.writeText "h-banii.greeter-config" (
+                builtins.toJSON {
+                  wallpaper = assets.wallpaper;
+                  icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                  loading_icon = assets.logo;
+                  font-family = "M PLUS 2";
+                  sessions = [
+                    {
+                      name = "Hyprland";
+                      cmd = "uwsm start hyprland-uwsm.desktop";
+                    }
+                  ];
+                  vendor_name = distroName;
+                }
+              );
+              greeter = lib.getExe inputs.greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
+            in
+            pkgs.writeShellScriptBin "greeterWrapped" ''
+              export H_BANII_GREET_CONFIG=${config} # TODO: Use wrapProgram
+              exec ${greeter}
+            '';
+        }
+      );
 
-      };
-
-      lib = {
-        mkQemuIso =
-          {
-            iso,
-            withUefi ? false,
-          }:
-          pkgs.writeShellScriptBin "qemu-system-x86_64-${distroName}" ''
-            ${pkgs.qemu}/bin/qemu-system-x86_64 \
-              ${if withUefi then "-bios ${pkgs.OVMF.fd}/FV/OVMF.fd" else ""} \
-              -cdrom $(echo ${iso}/iso/*.iso) \
-              $QEMU_OPTS \
-              "$@"
-          '';
-      };
+      # TODO: Extend nixpkgs.lib
+      lib = forAllSystems (
+        system:
+        let
+          pkgs = pkgsFor.${system};
+        in
+        {
+          mkQemuIso =
+            {
+              iso,
+              withUefi ? false,
+            }:
+            pkgs.writeShellScriptBin "qemu-system-x86_64-${distroName}" ''
+              ${pkgs.qemu}/bin/qemu-system-x86_64 \
+                ${if withUefi then "-bios ${pkgs.OVMF.fd}/FV/OVMF.fd" else ""} \
+                -cdrom $(echo ${iso}/iso/*.iso) \
+                $QEMU_OPTS \
+                "$@"
+            '';
+        }
+      );
 
       # TODO: Separate livecd and default system configs
       # (I don't think anyone would use it)
-      livecd =
+      livecd = forAllSystems (
+        system:
         let
-          inherit (self.lib) mkQemuIso;
+          inherit (self.lib.${system}) mkQemuIso;
           livecdSystem = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
               inherit inputs distroName;
-              assets = self.assets;
+              assets = assetsFor.${system};
               greeter = self.packages.${system}.greeter;
               isoWithCompression = true;
             };
@@ -89,8 +109,9 @@
             inherit iso;
             withUefi = true;
           };
-        };
+        }
+      );
 
-      assets = pkgs.callPackage ./assets { };
+      assets = forAllSystems (system: pkgsFor.${system}.callPackage ./assets { });
     };
 }
