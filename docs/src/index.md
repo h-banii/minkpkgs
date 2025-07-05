@@ -12,13 +12,13 @@ hero:
       link: /pages/introduction
     - theme: alt
       text: Install Nix
-      link: /pages/nix
+      link: /pages/requirements/install-nix
     - theme: alt
       text: GitHub
       link: "https://github.com/h-banii/MikanOS"
 
 features:
-  - title: LiveCD
+  - title: Live CD
     details: "Preview MikanOS in a virtual machine or ISO image"
     link: /pages/livecd
   - title: Graphical Installer

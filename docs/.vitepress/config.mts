@@ -11,15 +11,20 @@ export default defineConfig({
 
     sidebar: [
       {
+        items: [{ text: "Introduction", link: "/pages/introduction" }],
+      },
+      {
+        text: "Requirements",
+        collapsed: false,
         items: [
-          { text: "Introduction", link: "/pages/introduction" },
-          { text: "Nix", link: "/pages/nix" },
+          { text: "Install Nix", link: "/pages/requirements/install-nix" },
+          { text: "Uninstall Nix", link: "/pages/requirements/uninstall-nix" },
         ],
       },
       {
         text: "ISO Image",
         items: [
-          { text: "LiveCD", link: "/pages/livecd" },
+          { text: "Live CD", link: "/pages/livecd" },
           { text: "Installer", link: "/pages/installer" },
         ],
       },
