@@ -75,11 +75,10 @@
                 ];
               };
             in
-            rec {
-              vm = livecdSystem.config.system.build.vm;
-              iso = livecdSystem.config.system.build.isoImage;
-              iso-vm = pkgs.callPackage self.lib.mkQemuIso {
-                inherit iso;
+            livecdSystem.config.system.build
+            // {
+              isoVm = pkgs.callPackage self.lib.mkIsoVm {
+                iso = self.packages.${system}.livecd.isoImage;
                 withUefi = true;
               };
             };
@@ -87,7 +86,7 @@
       );
 
       lib = {
-        mkQemuIso =
+        mkIsoVm =
           {
             writeShellScriptBin,
             qemu,
