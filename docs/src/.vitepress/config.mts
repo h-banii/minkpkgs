@@ -6,17 +6,20 @@ export default defineConfig({
   description: "Documentation",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: "Home", link: "/" },
-      { text: "Examples", link: "/markdown-examples" },
-    ],
+    nav: [{ text: "Home", link: "/" }],
 
     sidebar: [
       {
-        text: "Examples",
         items: [
-          { text: "Markdown Examples", link: "/markdown-examples" },
-          { text: "Runtime API Examples", link: "/api-examples" },
+          { text: "Introduction", link: "/pages/introduction/index.md" },
+          { text: "Nix", link: "/pages/nix/index.md" },
+        ],
+      },
+      {
+        text: "ISO Image",
+        items: [
+          { text: "LiveCD", link: "/pages/livecd/index.md" },
+          { text: "Installer", link: "/pages/installer/index.md" },
         ],
       },
     ],

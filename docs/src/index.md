@@ -5,14 +5,13 @@ layout: home
 hero:
   name: "MikanOS"
   text: "Documentation"
-  tagline: My great project tagline
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Introduction
+      link: /pages/introduction
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Nix
+      link: /pages/nix
 
 features:
   - title: Feature A
