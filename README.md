@@ -1,6 +1,6 @@
-# MikanOS (WIP)
+# Linux Mink (WIP)
 
-NixOS configuration files for MikanOS.
+NixOS configuration files for Linux Mink.
 
 https://github.com/user-attachments/assets/8faacc68-b6c7-47a0-92ca-e75077e7fb54
 
@@ -58,7 +58,7 @@ Run it in a virtual machine (qemu)
 
 ```console
 $ export QEMU_OPTS='-m 4G -device virtio-vga-gl -display gtk,gl=on'
-$ nix run github:h-banii/MikanOS#livecd.vm
+$ nix run github:h-banii/LinuxMink#livecd.vm
 ```
 
 #### ISO (slow)
@@ -66,13 +66,13 @@ $ nix run github:h-banii/MikanOS#livecd.vm
 Build the iso image
 
 ```sh
-nix build github:h-banii/MikanOS#livecd.isoImage
+nix build github:h-banii/LinuxMink#livecd.isoImage
 ```
 
 Write .iso to usb stick (≥4GB)
 
 ```sh
-dd bs=4M conv=fsync oflag=direct status=progress if=./result/iso/MikanOS.iso of=/dev/path-to-usb-flash-drive
+dd bs=4M conv=fsync oflag=direct status=progress if=./result/iso/LinuxMink.iso of=/dev/path-to-usb-flash-drive
 ```
 
 > [!IMPORTANT]

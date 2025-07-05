@@ -1,4 +1,4 @@
-# MikanOS Documentation
+# Linux Mink Documentation
 
 ## Install the dependencies
 

@@ -25,7 +25,7 @@
       forAllSystems = lib.genAttrs (import systems);
       pkgsFor = forAllSystems (system: nixpkgs.legacyPackages.${system});
       assetsFor = forAllSystems (system: pkgsFor.${system}.callPackage ./assets { });
-      distroName = "MikanOS";
+      distroName = "Linux Mink";
     in
     {
       packages = forAllSystems (
@@ -72,7 +72,7 @@
             specialArgs = {
               inherit inputs distroName assets;
               greeter = self.packages.${system}.greeter;
-              isoWithCompression = true;
+              isoWithCompression = false;
             };
             modules = [
               ./host/livecd

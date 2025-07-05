@@ -13,7 +13,7 @@
 
   isoImage = {
     appendToMenuLabel = "";
-    isoBaseName = lib.mkForce distroName;
+    isoBaseName = lib.mkForce (builtins.replaceStrings [ " " ] [ "" ] distroName);
     splashImage = assets.logo;
     efiSplashImage = assets.wallpaper;
     grubTheme = null;

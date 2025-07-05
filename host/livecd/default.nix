@@ -18,7 +18,7 @@
   ];
 
   system.nixos.distroName = distroName;
-  networking.hostName = distroName;
+  networking.hostName = builtins.replaceStrings [ " " ] [ "" ] distroName;
   users.users.root.initialHashedPassword = lib.mkForce "";
 
   services.displayManager.sddm.enable = false;
