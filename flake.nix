@@ -34,6 +34,8 @@
           assets = pkgs.callPackage ./assets { };
         in
         {
+          inherit assets;
+
           greeter =
             let
               config = pkgs.writeText "h-banii.greeter-config" (
@@ -57,7 +59,32 @@
               export H_BANII_GREET_CONFIG=${config} # TODO: Use wrapProgram
               exec ${greeter}
             '';
-          inherit assets;
+
+          livecd =
+            let
+              inherit (self.lib.${system}) mkQemuIso;
+              livecdSystem = nixpkgs.lib.nixosSystem {
+                inherit system;
+                specialArgs = {
+                  inherit inputs distroName;
+                  assets = assetsFor.${system};
+                  greeter = self.packages.${system}.greeter;
+                  isoWithCompression = true;
+                };
+                modules = [
+                  ./host/livecd
+                ];
+              };
+              iso = livecdSystem.config.system.build.isoImage;
+            in
+            {
+              vm = livecdSystem.config.system.build.vm;
+              inherit iso;
+              iso-vm = mkQemuIso {
+                inherit iso;
+                withUefi = true;
+              };
+            };
         }
       );
 
@@ -80,36 +107,6 @@
                 $QEMU_OPTS \
                 "$@"
             '';
-        }
-      );
-
-      # TODO: Separate livecd and default system configs
-      # (I don't think anyone would use it)
-      livecd = forAllSystems (
-        system:
-        let
-          inherit (self.lib.${system}) mkQemuIso;
-          livecdSystem = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = {
-              inherit inputs distroName;
-              assets = assetsFor.${system};
-              greeter = self.packages.${system}.greeter;
-              isoWithCompression = true;
-            };
-            modules = [
-              ./host/livecd
-            ];
-          };
-          iso = livecdSystem.config.system.build.isoImage;
-        in
-        {
-          vm = livecdSystem.config.system.build.vm;
-          inherit iso;
-          iso-vm = mkQemuIso {
-            inherit iso;
-            withUefi = true;
-          };
         }
       );
     };
