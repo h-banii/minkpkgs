@@ -13,6 +13,9 @@ hero:
     - theme: alt
       text: Install Nix
       link: /pages/nix
+    - theme: alt
+      text: GitHub
+      link: "https://github.com/h-banii/MikanOS"
 
 features:
   - title: LiveCD
