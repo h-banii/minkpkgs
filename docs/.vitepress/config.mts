@@ -11,15 +11,15 @@ export default defineConfig({
     sidebar: [
       {
         items: [
-          { text: "Introduction", link: "/pages/introduction/index.md" },
-          { text: "Nix", link: "/pages/nix/index.md" },
+          { text: "Introduction", link: "/pages/introduction" },
+          { text: "Nix", link: "/pages/nix" },
         ],
       },
       {
         text: "ISO Image",
         items: [
-          { text: "LiveCD", link: "/pages/livecd/index.md" },
-          { text: "Installer", link: "/pages/installer/index.md" },
+          { text: "LiveCD", link: "/pages/livecd" },
+          { text: "Installer", link: "/pages/installer" },
         ],
       },
     ],
