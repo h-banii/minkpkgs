@@ -82,7 +82,7 @@ $ echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
 If everything went right, this should work
 
 ```console
-$ nix run nixpkgs##hello
+$ nix run nixpkgs#hello
 Hello, world!
 ```
 
