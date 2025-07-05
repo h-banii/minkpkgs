@@ -1,18 +1,21 @@
 # Nix
 
-This project requires [nix](https://nixos.org/) with **flakes** enabled.
+This project requires [nix](https://nixos.org/) with the experimental
+**flakes** feature enabled.
 
 ::: tip Recommended reads
 
 - <https://wiki.archlinux.org/title/Nix#Installation>
 - <https://wiki.nixos.org/wiki/Flakes#Setup>
+- <https://nixos.org/download/>
 :::
 
-::: warning
-Commands in this page were not tested (yet)
+::: info Commands tested on
+
+- Ubuntu Server 25.04
 :::
 
-## Install nix on non-NixOS distros
+## Installation
 
 ### From your package manager
 
@@ -24,7 +27,11 @@ pacman -Syu nix
 
 :::
 
-### From nixos.org
+### From installer
+
+::: details nixos.org
+
+Fetch the installer
 
 ```sh
 curl --proto '=https' --tlsv1.2 -sSfL \
@@ -37,22 +44,44 @@ Read the script before executing it
 less nix-install.sh
 ```
 
-Do the multi-user installation
+Give execute permission
 
 ```sh
-./nix-install.sh --daemon
+chmod +x nix-install.sh
 ```
 
-::: info Reference
-<https://nixos.org/download/>
+Do the installation (single-user)
+
+```sh
+./nix-install.sh --no-daemon
+```
+
+Source this file to update your PATH (or just open a new terminal)
+
+```sh
+. ~/.nix-profile/etc/profile.d/nix.sh
+```
+
 :::
 
-## Enable `nix command` and `flakes`
+## Enable experimental features
 
-Add this to `~/.config/nix/nix.conf` or `/etc/nix/nix.conf`
+Add this to `~/.config/nix/nix.conf`
 
 ```txt
 experimental-features = nix-command flakes
 ```
 
-You might need to restart the nix daemon for the configuration to take effect.
+```console
+$ mkdir -p ~/.config/nix
+$ echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
+```
+
+## Check
+
+If everything went right, this should work
+
+```console
+$ nix run nixpkgs#hello
+Hello, world!
+```
