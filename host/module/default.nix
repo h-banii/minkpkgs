@@ -1,5 +1,5 @@
 {
-  module,
+  nixModulePath,
   distroName,
   packages,
 }:
@@ -17,10 +17,10 @@ let
     mkEnableOption
     ;
   inherit (packages.${pkgs.stdenv.hostPlatform.system}) greeter assets;
-  cfg = config.${module};
+  cfg = lib.getAttrFromPath nixModulePath config;
 in
 {
-  options.${module} = {
+  options = lib.setAttrByPath nixModulePath {
     distroName.enable = mkEnableOption "distribution name";
     greeter.enable = mkEnableOption "${distroName} greeter";
   };

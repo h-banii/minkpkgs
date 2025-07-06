@@ -91,7 +91,7 @@
       );
 
       nixosModules.default = import ./host/module {
-        module = "linuxMink";
+        nixModulePath = [ "linuxMink" ];
         packages = forAllSystems (system: self.packages.${system} // self.legacyPackages.${system});
         inherit distroName;
       };
