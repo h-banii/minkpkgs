@@ -1,8 +1,6 @@
 {
   pkgs,
   lib,
-  greeter,
-  assets,
   ...
 }:
 {
@@ -18,28 +16,11 @@
 
   linuxMink = {
     distroName.enable = true;
+    greeter.enable = true;
   };
   users.users.root.initialHashedPassword = lib.mkForce "";
 
   services.displayManager.sddm.enable = false;
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session =
-        let
-          hyprlandConfig = pkgs.writeText "hyprland-greeter.conf" ''
-            monitor=,preferred,auto,1
-            exec-once = ${lib.getExe greeter}
-            decoration {
-              screen_shader = ${assets.shader}
-            }
-          '';
-        in
-        {
-          command = "Hyprland --config ${hyprlandConfig}";
-        };
-    };
-  };
 
   programs.uwsm.enable = true;
   programs.hyprland.enable = true;
