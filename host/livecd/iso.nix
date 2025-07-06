@@ -17,6 +17,6 @@
     splashImage = assets.logo;
     efiSplashImage = assets.wallpaper;
     grubTheme = null;
-    squashfsCompression = lib.mkIf (isoWithCompression == false) "gzip -Xcompression-level 1";
+    squashfsCompression = lib.mkIf (!isoWithCompression) "gzip -Xcompression-level 1";
   };
 }
