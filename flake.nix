@@ -75,6 +75,7 @@
               isoWithCompression = false;
             };
             modules = [
+              self.nixosModules.default
               ./host/livecd
             ];
           };
@@ -89,6 +90,11 @@
           inherit assets;
         }
       );
+
+      nixosModules.default = import ./host/module {
+        module = "linuxMink";
+        inherit distroName;
+      };
 
       lib = {
         mkIsoVm =
