@@ -71,7 +71,6 @@
             inherit system;
             specialArgs = {
               inherit inputs distroName assets;
-              greeter = self.packages.${system}.greeter;
               isoWithCompression = false;
             };
             modules = [
@@ -93,6 +92,7 @@
 
       nixosModules.default = import ./host/module {
         module = "linuxMink";
+        packages = forAllSystems (system: self.packages.${system} // self.legacyPackages.${system});
         inherit distroName;
       };
 
