@@ -94,6 +94,11 @@
         inherit release inputs;
       };
 
+      homeManagerModules.default = import ./modules/home-manager {
+        minkpkgs = self;
+        inherit release inputs;
+      };
+
       lib = import ./lib {
         inherit lib release;
         hmLib = inputs.home-manager.lib.hm;
