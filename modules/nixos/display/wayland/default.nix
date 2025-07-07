@@ -1,16 +1,11 @@
-{ modulePath, ... }@moduleArgs:
+{ modulePath, moduleLib, ... }@moduleArgs:
 { lib, config, ... }:
 let
   inherit (lib) setAttrByPath mkEnableOption;
 in
 {
   imports = [
-    (import ./hyprland.nix (
-      moduleArgs
-      // {
-        modulePath = modulePath ++ [ "hyprland" ];
-      }
-    ))
+    (moduleLib.import ./hyprland.nix moduleArgs [ "hyprland" ])
   ];
 
   options = setAttrByPath modulePath {
