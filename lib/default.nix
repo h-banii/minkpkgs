@@ -31,15 +31,6 @@
       ];
     };
   module = {
-    import =
-      filePath: moduleArgs: modulePath:
-      import filePath (
-        moduleArgs
-        // {
-          modulePath = moduleArgs.modulePath ++ modulePath;
-        }
-      );
-
     getConfig =
       { modulePrefix, modulePath, ... }: config: lib.getAttrFromPath (modulePrefix ++ modulePath) config;
 
@@ -51,7 +42,7 @@
       { modulePrefix, modulePath, ... }: args: lib.setAttrByPath (modulePrefix ++ modulePath) args;
 
     # This assumes module path and file path match.
-    importStrict =
+    import =
       moduleArgs: fileName:
       let
         filePath = lib.lists.foldl (a: b: "${a}/${b}") moduleArgs.rootPath moduleArgs.modulePath;
