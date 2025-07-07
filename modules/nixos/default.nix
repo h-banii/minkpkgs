@@ -2,7 +2,7 @@
   modulePath,
   distroName,
   packages,
-}:
+}@moduleArgs:
 {
   config,
   lib,
@@ -20,6 +20,10 @@ let
   cfg = lib.getAttrFromPath modulePath config;
 in
 {
+  imports = [
+    (import ./display (moduleArgs // { modulePath = modulePath ++ [ "display" ]; }))
+  ];
+
   options = lib.setAttrByPath modulePath {
     distroName.enable = mkEnableOption "distribution name";
     greeter.enable = mkEnableOption "${distroName} greeter";
