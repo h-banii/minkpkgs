@@ -1,5 +1,5 @@
 {
-  moduleLib,
+  minkpkgs,
   distroName,
   ...
 }@moduleArgs:
@@ -10,12 +10,12 @@ let
     mkEnableOption
     mkDefault
     ;
-  cfg = moduleLib.getConfig moduleArgs config;
-  supercfg = moduleLib.getSuperConfig moduleArgs config;
+  cfg = minkpkgs.lib.module.getConfig moduleArgs config;
+  supercfg = minkpkgs.lib.module.getSuperConfig moduleArgs config;
   withUWSM = supercfg.uwsm.enable;
 in
 {
-  options = moduleLib.setOptions moduleArgs {
+  options = minkpkgs.lib.module.setOptions moduleArgs {
     enable = mkEnableOption "Hyprland";
   };
 

@@ -94,8 +94,7 @@
       );
 
       nixosModules.default = import ./modules/nixos {
-        moduleLib = self.lib.module;
-        packages = forAllSystems (system: self.packages.${system} // self.legacyPackages.${system});
+        minkpkgs = self;
         inherit distroName;
       };
 
