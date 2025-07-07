@@ -50,15 +50,14 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-q2frQOj2rZwB143iJpVGQc6PIHazsmZLSqj4gdlZGRY=",
         "path": "docs",
         "type": "path"
       },
       "original": {
         "path": "docs",
         "type": "path"
-      }
+      },
+      "parent": []
     },
     "greeter": {
       "inputs": {
