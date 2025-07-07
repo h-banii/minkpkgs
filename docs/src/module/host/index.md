@@ -36,10 +36,12 @@ const data = ref({});
 const showModal = ref(false)
 
 if (import.meta.env.PROD) {
-  onMounted(async () => {
-    const res = await fetch('https://h-banii.github.io/LinuxMink/')
-    data.value = await res.json()
-  })
+  onMounted(() =>
+    fetch('https://h-banii.github.io/LinuxMink/modules/nixos/options.json')
+      .then(res => res.json)
+      .then(json => data.value = json)
+      .catch(console.log)
+  )
 } else {
   data.value = nixosModuleOptions;
 };
