@@ -23,9 +23,10 @@ features:
     link: /pages/livecd
   - title: Graphical Installer
     details: WIP
-  - title: NixOS module
-    details: WIP
-  - title: HomeManager module
+  - title: NixOS Module
+    details: "Options documentation"
+    link: /module/host/
+  - title: HomeManager Module
     details: WIP
 ---
 
