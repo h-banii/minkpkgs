@@ -1,14 +1,15 @@
 { minkpkgs, ... }@moduleArgs:
+with minkpkgs.lib;
 { lib, config, ... }:
 let
   inherit (lib) mkEnableOption;
 in
 {
   imports = [
-    (minkpkgs.lib.module.import moduleArgs "hyprland.nix")
+    (module.import moduleArgs "hyprland.nix")
   ];
 
-  options = minkpkgs.lib.module.setOptions moduleArgs {
+  options = module.setOptions moduleArgs {
     uwsm.enable = mkEnableOption "UWSM (Universal Wayland Session Manager)";
   };
 }
