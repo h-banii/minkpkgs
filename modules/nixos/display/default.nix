@@ -1,7 +1,7 @@
-{ modulePath, ... }@moduleArgs:
+{ modulePath, moduleLib, ... }@moduleArgs:
 { ... }:
 {
   imports = [
-    (import ./wayland (moduleArgs // { modulePath = modulePath ++ [ "wayland" ]; }))
+    (moduleLib.import ./wayland moduleArgs [ "wayland" ])
   ];
 }

@@ -1,7 +1,9 @@
 {
   modulePath,
+  moduleLib,
   distroName,
   packages,
+  ...
 }@moduleArgs:
 {
   config,
@@ -21,7 +23,7 @@ let
 in
 {
   imports = [
-    (import ./display (moduleArgs // { modulePath = modulePath ++ [ "display" ]; }))
+    (moduleLib.import ./display moduleArgs [ "display" ])
   ];
 
   options = lib.setAttrByPath modulePath {
