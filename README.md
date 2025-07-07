@@ -32,7 +32,9 @@ nix build github:h-banii/LinuxMink#livecd.isoImage
 
 ### Graphical Installer (WIP)
 
-### NixOS Module (WIP)
+### NixOS Module
+
+https://h-banii.github.io/LinuxMink/modules/nixos/
 
 ### Home Manager Module (WIP)
 
