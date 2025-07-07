@@ -33,11 +33,13 @@ in
   ];
 
   options = module.setOptions moduleArgs {
-    distroName.enable = mkEnableOption "distribution name";
+    setDistroName = mkEnableOption null // {
+      description = "Wheter to set distribution name to ${distroName}";
+    };
   };
 
   config = mkMerge [
-    (mkIf cfg.distroName.enable {
+    (mkIf cfg.setDistroName {
       system.nixos.distroName = mkDefault distroName;
       networking.hostName = mkDefault (builtins.replaceStrings [ " " ] [ "" ] distroName);
     })

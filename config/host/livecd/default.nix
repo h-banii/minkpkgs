@@ -14,7 +14,7 @@
   ];
 
   linuxMink = {
-    distroName.enable = true;
+    setDistroName = true;
     greeter.enable = true;
     display.wayland = {
       uwsm.enable = true;
