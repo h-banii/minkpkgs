@@ -75,7 +75,7 @@
             };
             modules = [
               self.nixosModules.default
-              ./host/livecd
+              ./config/host/livecd
             ];
           };
         in
