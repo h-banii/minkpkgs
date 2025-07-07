@@ -43,15 +43,16 @@
 
     # This assumes module path and file path match.
     import =
-      moduleArgs: fileName:
+      { rootPath, modulePath, ... }@args:
+      fileName:
       let
-        filePath = lib.lists.foldl (a: b: "${a}/${b}") moduleArgs.rootPath moduleArgs.modulePath;
+        filePath = lib.lists.foldl (a: b: "${a}/${b}") rootPath modulePath;
       in
       import "${filePath}/${fileName}" (
-        moduleArgs
+        args
         // {
           modulePath =
-            moduleArgs.modulePath
+            modulePath
             ++ lib.strings.splitString "/" (builtins.replaceStrings [ ".nix" ] [ "" ] fileName);
         }
       );
