@@ -24,9 +24,6 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v4.2.2
-        with:
-          sparse-checkout: |
-            docs
       - name: Nix build
         run: nix build .#docs
       - uses: actions/upload-pages-artifact@v3.0.1
