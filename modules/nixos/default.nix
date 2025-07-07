@@ -34,7 +34,7 @@ in
 
   options = module.setOptions moduleArgs {
     setDistroName = mkEnableOption null // {
-      description = "Wheter to set distribution name to ${distroName}";
+      description = "Whether to set distribution name to ${distroName}";
     };
   };
 
