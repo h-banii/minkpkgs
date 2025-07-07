@@ -30,4 +30,14 @@
         module
       ];
     };
+  module = {
+    import =
+      filePath: moduleArgs: modulePath:
+      import filePath (
+        moduleArgs
+        // {
+          modulePath = moduleArgs.modulePath ++ modulePath;
+        }
+      );
+  };
 }
