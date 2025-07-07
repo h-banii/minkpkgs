@@ -28,9 +28,27 @@
       distroName = "Linux Mink";
     in
     {
-      packages = forAllSystems (system: {
-        docs = inputs.docs.packages.${system}.default;
-      });
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = pkgsFor.${system};
+          nixosOptionsJSON = self.legacyPackages.${system}.nixosOptionsDoc.optionsJSON;
+        in
+        {
+          docs = pkgs.symlinkJoin {
+            name = "mikan-docs";
+            paths = [
+              inputs.docs.packages.${system}.default
+              (pkgs.linkFarm "mikan-nixos-module-docs" [
+                {
+                  name = "modules/nixos";
+                  path = "${nixosOptionsJSON}/share/doc/nixos";
+                }
+              ])
+            ];
+          };
+        }
+      );
 
       legacyPackages = forAllSystems (
         system:
