@@ -39,5 +39,30 @@
           modulePath = moduleArgs.modulePath ++ modulePath;
         }
       );
+
+    getConfig =
+      { modulePrefix, modulePath, ... }: config: lib.getAttrFromPath (modulePrefix ++ modulePath) config;
+
+    getSuperConfig =
+      { modulePrefix, modulePath, ... }:
+      config: lib.getAttrFromPath (modulePrefix ++ (lib.lists.init modulePath)) config;
+
+    setOptions =
+      { modulePrefix, modulePath, ... }: args: lib.setAttrByPath (modulePrefix ++ modulePath) args;
+
+    # This assumes module path and file path match.
+    importStrict =
+      moduleArgs: fileName:
+      let
+        filePath = lib.lists.foldl (a: b: "${a}/${b}") moduleArgs.rootPath moduleArgs.modulePath;
+      in
+      import "${filePath}/${fileName}" (
+        moduleArgs
+        // {
+          modulePath =
+            moduleArgs.modulePath
+            ++ lib.strings.splitString "/" (builtins.replaceStrings [ ".nix" ] [ "" ] fileName);
+        }
+      );
   };
 }
