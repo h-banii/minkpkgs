@@ -36,6 +36,7 @@
         let
           pkgs = pkgsFor.${system};
           nixosOptionsJSON = self.legacyPackages.${system}.nixosOptionsDoc.optionsJSON;
+          homeManagerOptionsJSON = self.legacyPackages.${system}.homeManagerOptionsDoc.optionsJSON;
         in
         {
           docs = pkgs.symlinkJoin {
@@ -46,6 +47,10 @@
                 {
                   name = "nixos-options.json";
                   path = "${nixosOptionsJSON}/share/doc/nixos/options.json";
+                }
+                {
+                  name = "home-manager-options.json";
+                  path = "${homeManagerOptionsJSON}/share/doc/nixos/options.json";
                 }
               ])
             ];
@@ -84,6 +89,9 @@
           };
           nixosOptionsDoc = pkgs.nixosOptionsDoc {
             inherit (self.lib.evalModuleWithoutCheck self.nixosModules.default) options;
+          };
+          homeManagerOptionsDoc = pkgs.nixosOptionsDoc {
+            inherit (self.lib.evalModuleWithoutCheck self.homeManagerModules.default) options;
           };
           inherit assets;
         }
