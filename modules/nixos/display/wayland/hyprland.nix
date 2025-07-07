@@ -1,8 +1,4 @@
-{
-  minkpkgs,
-  distroName,
-  ...
-}@moduleArgs:
+{ minkpkgs, ... }@moduleArgs:
 with minkpkgs.lib;
 { lib, config, ... }:
 let

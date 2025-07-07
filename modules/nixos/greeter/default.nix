@@ -1,7 +1,7 @@
 {
   minkpkgs,
   inputs,
-  distroName,
+  release,
   ...
 }@moduleArgs:
 with minkpkgs.lib;
@@ -27,7 +27,7 @@ let
           cmd = "uwsm start hyprland-uwsm.desktop";
         }
       ];
-      vendor_name = distroName;
+      vendor_name = release.distroName;
     };
     greeter-unwrapped = inputs.greeter.packages.${system}.default;
   };

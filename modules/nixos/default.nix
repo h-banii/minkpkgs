@@ -1,6 +1,6 @@
 {
   minkpkgs,
-  distroName,
+  release,
   ...
 }@initialModuleArgs:
 let
@@ -19,9 +19,7 @@ with minkpkgs.lib;
 }:
 let
   inherit (lib)
-    mkMerge
     mkIf
-    mkDefault
     mkEnableOption
     ;
   cfg = minkpkgs.lib.module.getConfig moduleArgs config;
@@ -33,15 +31,12 @@ in
   ];
 
   options = module.setOptions moduleArgs {
-    setDistroName = mkEnableOption null // {
-      description = "Whether to set distribution name to ${distroName}";
+    setOSRelease = mkEnableOption null // {
+      description = "Whether to set /etc/os-release";
     };
   };
 
-  config = mkMerge [
-    (mkIf cfg.setDistroName {
-      system.nixos.distroName = mkDefault distroName;
-      networking.hostName = mkDefault (builtins.replaceStrings [ " " ] [ "" ] distroName);
-    })
-  ];
+  config = mkIf cfg.setOSRelease {
+    system.nixos = release;
+  };
 }

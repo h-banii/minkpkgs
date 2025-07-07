@@ -1,7 +1,7 @@
 {
   lib,
   isoWithCompression ? true,
-  distroName,
+  release,
   modulesPath,
   assets,
   ...
@@ -15,7 +15,7 @@
 
   isoImage = {
     appendToMenuLabel = "";
-    isoBaseName = lib.mkForce (builtins.replaceStrings [ " " ] [ "" ] distroName);
+    isoBaseName = lib.mkForce release.distroId;
     splashImage = assets.logo;
     efiSplashImage = assets.wallpaper;
     grubTheme = null;

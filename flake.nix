@@ -25,7 +25,10 @@
       forAllSystems = lib.genAttrs (import systems);
       pkgsFor = forAllSystems (system: nixpkgs.legacyPackages.${system});
       assetsFor = forAllSystems (system: pkgsFor.${system}.callPackage ./assets { });
-      distroName = "Linux Mink";
+      release = {
+        distroName = "Linux Mink";
+        distroId = "linux-mink";
+      };
     in
     {
       packages = forAllSystems (
@@ -58,7 +61,7 @@
           livecdSystem = lib.nixosSystem {
             inherit system;
             specialArgs = {
-              inherit inputs distroName assets;
+              inherit inputs release assets;
               isoWithCompression = false;
             };
             modules = [
@@ -83,10 +86,10 @@
 
       nixosModules.default = import ./modules/nixos {
         minkpkgs = self;
-        inherit distroName inputs;
+        inherit release inputs;
       };
 
-      lib = import ./lib { inherit lib distroName; };
+      lib = import ./lib { inherit lib release; };
 
       checks = forAllSystems (
         system:

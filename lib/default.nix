@@ -1,4 +1,4 @@
-{ lib, distroName }:
+{ lib, release }:
 {
   mkIsoVm =
     {
@@ -8,7 +8,7 @@
       iso,
       withUefi ? false,
     }:
-    writeShellScriptBin "qemu-system-x86_64-${distroName}" ''
+    writeShellScriptBin "qemu-system-x86_64-${release.distroId}" ''
       ${qemu}/bin/qemu-system-x86_64 \
         ${if withUefi then "-bios ${OVMF.fd}/FV/OVMF.fd" else ""} \
         -cdrom $(echo ${iso}/iso/*.iso) \
