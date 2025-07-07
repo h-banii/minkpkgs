@@ -29,16 +29,17 @@
 </div>
 
 <script setup>
+import { useData } from 'vitepress'
 import { ref, onMounted } from 'vue'
 import nixosModuleOptions from './options.mock.json';
 
 const data = ref({});
-const showModal = ref(false)
+const { site } = useData();
 
 if (import.meta.env.PROD) {
   onMounted(() =>
-    fetch('https://h-banii.github.io/LinuxMink/modules/nixos/options.json')
-      .then(res => res.json)
+    fetch(site.fn().base + 'modules/nixos/options.json')
+      .then(res => res.json())
       .then(json => data.value = json)
       .catch(console.log)
   )
