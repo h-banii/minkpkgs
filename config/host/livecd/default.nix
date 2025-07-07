@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   ...
 }:
 {
@@ -22,9 +21,6 @@
       hyprland.enable = true;
     };
   };
-  users.users.root.initialHashedPassword = lib.mkForce "";
-
-  services.displayManager.sddm.enable = false;
 
   fonts.packages = with pkgs; [
     mplus-outline-fonts.githubRelease
