@@ -1,4 +1,5 @@
 {
+  minkpkgs,
   inputs,
   lib,
   assets,
@@ -29,7 +30,7 @@
     useUserPackages = true;
     backupFileExtension = "bak";
     extraSpecialArgs = {
-      inherit assets;
+      inherit assets minkpkgs;
     };
   };
 }
