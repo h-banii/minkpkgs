@@ -1,4 +1,9 @@
-{ minkpkgs, ... }@moduleArgs:
+{
+  minkpkgs,
+  inputs,
+  distroName,
+  ...
+}@moduleArgs:
 with minkpkgs.lib;
 {
   lib,
@@ -9,7 +14,23 @@ with minkpkgs.lib;
 let
   inherit (lib) mkIf mkEnableOption mkDefault;
   system = pkgs.stdenv.hostPlatform.system;
-  inherit (minkpkgs.packages.${system}) greeter assets;
+  inherit (minkpkgs.legacyPackages.${system}) assets;
+  greeter = pkgs.callPackage ./package.nix {
+    settings = {
+      wallpaper = assets.wallpaper;
+      icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+      loading_icon = assets.logo;
+      font-family = "M PLUS 2";
+      sessions = [
+        {
+          name = "Hyprland";
+          cmd = "uwsm start hyprland-uwsm.desktop";
+        }
+      ];
+      vendor_name = distroName;
+    };
+    greeter-unwrapped = inputs.greeter.packages.${system}.default;
+  };
   cfg = module.getConfig moduleArgs config;
 in
 {
