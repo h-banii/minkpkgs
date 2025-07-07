@@ -25,7 +25,7 @@ export default defineConfig({
         text: "ISO Image",
         items: [
           { text: "Live CD", link: "/pages/livecd" },
-          { text: "Installer", link: "/pages/installer" },
+          { text: "Graphical Installer", link: "/pages/installer" },
         ],
       },
       {
