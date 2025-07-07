@@ -1,9 +1,15 @@
-{ inputs, assets, ... }:
+{
+  inputs,
+  lib,
+  assets,
+  ...
+}:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
   ];
 
+  users.users.root.initialHashedPassword = lib.mkForce "";
   users.users.mikan = {
     isNormalUser = true;
     group = "mikan";

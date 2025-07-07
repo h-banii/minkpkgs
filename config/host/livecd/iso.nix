@@ -11,6 +11,8 @@
     (modulesPath + "/installer/cd-dvd/installation-cd-graphical-base.nix")
   ];
 
+  services.displayManager.sddm.enable = false;
+
   isoImage = {
     appendToMenuLabel = "";
     isoBaseName = lib.mkForce (builtins.replaceStrings [ " " ] [ "" ] distroName);
