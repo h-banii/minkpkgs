@@ -1,8 +1,8 @@
 {
-  modulePath,
+  moduleLib,
   distroName,
   ...
-}:
+}@moduleArgs:
 { lib, config, ... }:
 let
   inherit (lib)
@@ -10,12 +10,12 @@ let
     mkEnableOption
     mkDefault
     ;
-  cfg = lib.getAttrFromPath modulePath config;
-  supercfg = lib.getAttrFromPath (lib.lists.init modulePath) config;
+  cfg = moduleLib.getConfig moduleArgs config;
+  supercfg = moduleLib.getSuperConfig moduleArgs config;
   withUWSM = supercfg.uwsm.enable;
 in
 {
-  options = lib.setAttrByPath modulePath {
+  options = moduleLib.setOptions moduleArgs {
     enable = mkEnableOption "Hyprland";
   };
 

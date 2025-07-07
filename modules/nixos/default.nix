@@ -1,10 +1,17 @@
 {
-  modulePath,
+  modulePrefix ? [ "linuxMink" ],
   moduleLib,
   distroName,
   packages,
   ...
-}@moduleArgs:
+}@initialModuleArgs:
+let
+  moduleArgs = initialModuleArgs // {
+    inherit modulePrefix;
+    rootPath = ./.;
+    modulePath = [ ];
+  };
+in
 {
   config,
   lib,
@@ -19,14 +26,14 @@ let
     mkEnableOption
     ;
   inherit (packages.${pkgs.stdenv.hostPlatform.system}) greeter assets;
-  cfg = lib.getAttrFromPath modulePath config;
+  cfg = moduleLib.getConfig moduleArgs config;
 in
 {
   imports = [
-    (moduleLib.import ./display moduleArgs [ "display" ])
+    (moduleLib.import moduleArgs "display/wayland")
   ];
 
-  options = lib.setAttrByPath modulePath {
+  options = moduleLib.setOptions moduleArgs {
     distroName.enable = mkEnableOption "distribution name";
     greeter.enable = mkEnableOption "${distroName} greeter";
   };

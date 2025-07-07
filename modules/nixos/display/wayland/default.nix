@@ -1,14 +1,14 @@
 { modulePath, moduleLib, ... }@moduleArgs:
 { lib, config, ... }:
 let
-  inherit (lib) setAttrByPath mkEnableOption;
+  inherit (lib) mkEnableOption;
 in
 {
   imports = [
-    (moduleLib.import ./hyprland.nix moduleArgs [ "hyprland" ])
+    (moduleLib.import moduleArgs "hyprland.nix")
   ];
 
-  options = setAttrByPath modulePath {
+  options = moduleLib.setOptions moduleArgs {
     uwsm.enable = mkEnableOption "UWSM (Universal Wayland Session Manager)";
   };
 }
