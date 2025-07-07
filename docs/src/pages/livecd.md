@@ -21,8 +21,8 @@ Write the iso to an usb stick (≥4GB)
 
 ```sh
 dd bs=4M conv=fsync oflag=direct status=progress \
-    if=./result/iso/LinuxMink.iso \
-    of=/dev/path-to-usb-flash-drive
+    if=./result/iso/linux-mink.iso \
+    of=/dev/sdX
 ```
 
 > [!IMPORTANT]
