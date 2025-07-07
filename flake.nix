@@ -73,7 +73,7 @@
         {
           livecd = livecdSystem.config.system.build // {
             isoVm = pkgs.callPackage self.lib.mkIsoVm {
-              iso = self.packages.${system}.livecd.isoImage;
+              iso = self.legacyPackages.${system}.livecd.isoImage;
               withUefi = true;
             };
           };
