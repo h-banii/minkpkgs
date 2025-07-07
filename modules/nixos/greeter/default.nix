@@ -57,5 +57,8 @@ in
           };
       };
     };
+    fonts.packages = with pkgs; [
+      mplus-outline-fonts.githubRelease
+    ];
   };
 }

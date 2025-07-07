@@ -1,5 +1,4 @@
 {
-  pkgs,
   ...
 }:
 {
@@ -21,10 +20,6 @@
       hyprland.enable = true;
     };
   };
-
-  fonts.packages = with pkgs; [
-    mplus-outline-fonts.githubRelease
-  ];
 
   system.stateVersion = "24.05";
 }
