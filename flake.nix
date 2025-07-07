@@ -78,6 +78,19 @@
               ./host/livecd
             ];
           };
+          nixosModuleEval = lib.evalModules {
+            modules = [
+              {
+                options._module.args = lib.mkOption {
+                  internal = true;
+                };
+                config = {
+                  _module.check = false;
+                };
+              }
+              self.nixosModules.default
+            ];
+          };
         in
         {
           livecd = livecdSystem.config.system.build // {
@@ -85,6 +98,9 @@
               iso = self.packages.${system}.livecd.isoImage;
               withUefi = true;
             };
+          };
+          nixosOptionsDoc = pkgs.nixosOptionsDoc {
+            inherit (nixosModuleEval) options;
           };
           inherit assets;
         }
