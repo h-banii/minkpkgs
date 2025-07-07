@@ -17,14 +17,14 @@
   linuxMink = {
     distroName.enable = true;
     greeter.enable = true;
+    display.wayland = {
+      uwsm.enable = true;
+      hyprland.enable = true;
+    };
   };
   users.users.root.initialHashedPassword = lib.mkForce "";
 
   services.displayManager.sddm.enable = false;
-
-  programs.uwsm.enable = true;
-  programs.hyprland.enable = true;
-  programs.hyprland.withUWSM = true;
 
   fonts.packages = with pkgs; [
     mplus-outline-fonts.githubRelease
