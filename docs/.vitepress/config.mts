@@ -28,6 +28,10 @@ export default defineConfig({
           { text: "Installer", link: "/pages/installer" },
         ],
       },
+      {
+        text: "Modules",
+        items: [{ text: "NixOS module", link: "/modules/nixos/" }],
+      },
     ],
 
     socialLinks: [
