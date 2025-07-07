@@ -17,8 +17,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.uwsm.enable = mkDefault withUWSM;
     programs.hyprland.enable = true;
+    # TODO: Set custom config here
+    # programs.uwsm.waylandCompositors.hyprland-mikan = {
+    #   prettyName = "Hyprland";
+    #   comment = "Hyprland compositor managed by UWSM";
+    #   binPath = "/run/current-system/sw/bin/Hyprland";
+    # };
     programs.hyprland.withUWSM = mkDefault withUWSM;
   };
 }
