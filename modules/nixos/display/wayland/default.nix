@@ -1,8 +1,7 @@
 { modulePath, ... }@moduleArgs:
 { lib, config, ... }:
 let
-  inherit (lib) getAttrFromPath setAttrByPath mkEnableOption;
-  cfg = getAttrFromPath modulePath config;
+  inherit (lib) setAttrByPath mkEnableOption;
 in
 {
   imports = [
@@ -10,7 +9,6 @@ in
       moduleArgs
       // {
         modulePath = modulePath ++ [ "hyprland" ];
-        supercfg = cfg;
       }
     ))
   ];
