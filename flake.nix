@@ -66,6 +66,7 @@
           livecdSystem = lib.nixosSystem {
             inherit system;
             specialArgs = {
+              minkpkgs = self;
               inherit inputs release assets;
               isoWithCompression = false;
             };
