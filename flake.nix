@@ -77,6 +77,11 @@
               withUefi = true;
             };
           };
+          dotfiles = {
+            hyprland = pkgs.callPackage self.lib.hm.mkDotfiles.hyprland {
+              config = livecdSystem.config.home-manager.users.mikan;
+            };
+          };
           nixosOptionsDoc = pkgs.nixosOptionsDoc {
             inherit (self.lib.evalModuleWithoutCheck self.nixosModules.default) options;
           };
@@ -89,7 +94,10 @@
         inherit release inputs;
       };
 
-      lib = import ./lib { inherit lib release; };
+      lib = import ./lib {
+        inherit lib release;
+        hmLib = inputs.home-manager.lib.hm;
+      };
 
       checks = forAllSystems (
         system:

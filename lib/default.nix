@@ -1,4 +1,8 @@
-{ lib, release }:
+{
+  lib,
+  release,
+  hmLib,
+}:
 {
   mkIsoVm =
     {
@@ -57,4 +61,29 @@
         }
       );
   };
+  hm.mkDotfiles.hyprland =
+    {
+      dbus,
+      writeText,
+      config,
+      ...
+    }:
+    let
+      cfg = config.wayland.windowManager.hyprland;
+      variables = builtins.concatStringsSep " " cfg.systemd.variables;
+      extraCommands = builtins.concatStringsSep " " (map (f: "&& ${f}") cfg.systemd.extraCommands);
+      systemdActivation = ''
+        exec-once = ${dbus}/bin/dbus-update-activation-environment --systemd ${variables} ${extraCommands}
+      '';
+    in
+    writeText "${release.distroId}-hyprland-dotfile" (
+      lib.optionalString cfg.systemd.enable systemdActivation
+      + lib.optionalString (cfg.settings != { }) (
+        hmLib.generators.toHyprconf {
+          attrs = cfg.settings;
+          inherit (cfg) importantPrefixes;
+        }
+      )
+      + lib.optionalString (cfg.extraConfig != "") cfg.extraConfig
+    );
 }
