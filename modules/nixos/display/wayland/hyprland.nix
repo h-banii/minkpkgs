@@ -1,7 +1,6 @@
 {
   modulePath,
   distroName,
-  supercfg,
   ...
 }:
 { lib, config, ... }:
@@ -12,6 +11,7 @@ let
     mkDefault
     ;
   cfg = lib.getAttrFromPath modulePath config;
+  supercfg = lib.getAttrFromPath (lib.lists.init modulePath) config;
   withUWSM = supercfg.uwsm.enable;
 in
 {
