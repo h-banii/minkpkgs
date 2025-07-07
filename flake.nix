@@ -28,39 +28,9 @@
       distroName = "Linux Mink";
     in
     {
-      packages = forAllSystems (
-        system:
-        let
-          pkgs = pkgsFor.${system};
-          assets = assetsFor.${system};
-        in
-        {
-          greeter =
-            let
-              config = pkgs.writeText "h-banii.greeter-config" (
-                builtins.toJSON {
-                  wallpaper = assets.wallpaper;
-                  icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                  loading_icon = assets.logo;
-                  font-family = "M PLUS 2";
-                  sessions = [
-                    {
-                      name = "Hyprland";
-                      cmd = "uwsm start hyprland-uwsm.desktop";
-                    }
-                  ];
-                  vendor_name = distroName;
-                }
-              );
-              greeter = lib.getExe inputs.greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
-            in
-            pkgs.writeShellScriptBin "greeterWrapped" ''
-              export H_BANII_GREET_CONFIG=${config} # TODO: Use wrapProgram
-              exec ${greeter}
-            '';
-          docs = inputs.docs.packages.${system}.default;
-        }
-      );
+      packages = forAllSystems (system: {
+        docs = inputs.docs.packages.${system}.default;
+      });
 
       legacyPackages = forAllSystems (
         system:
@@ -95,7 +65,7 @@
 
       nixosModules.default = import ./modules/nixos {
         minkpkgs = self;
-        inherit distroName;
+        inherit distroName inputs;
       };
 
       lib = import ./lib { inherit lib distroName; };
