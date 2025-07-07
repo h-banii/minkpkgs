@@ -41,8 +41,8 @@
               inputs.docs.packages.${system}.default
               (pkgs.linkFarm "mikan-nixos-module-docs" [
                 {
-                  name = "modules/nixos";
-                  path = "${nixosOptionsJSON}/share/doc/nixos";
+                  name = "nixos-options.json";
+                  path = "${nixosOptionsJSON}/share/doc/nixos/options.json";
                 }
               ])
             ];

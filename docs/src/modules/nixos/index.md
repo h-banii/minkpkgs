@@ -38,7 +38,7 @@ const { site } = useData();
 
 if (import.meta.env.PROD) {
   onMounted(() =>
-    fetch(site.fn().base + 'modules/nixos/options.json')
+    fetch(site.fn().base + 'nixos-options.json')
       .then(res => res.json())
       .then(json => data.value = json)
       .catch(console.log)
