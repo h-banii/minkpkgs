@@ -29,7 +29,7 @@ in
 
   config = {
     wayland.windowManager.hyprland.enable = cfg.enable;
-    wayland.windowManager.hyprland.settings = lib.recursiveUpdate {
+    wayland.windowManager.hyprland.settings = minkpkgs.lib.attrsets.recursiveMergeUpdate {
       general = {
         gaps_in = 8;
         gaps_out = 8;
@@ -43,6 +43,7 @@ in
         inactive_opacity = 0.85;
         fullscreen_opacity = 1.00;
       };
+      exec-once = (module.getRootConfig moduleArgs [ "programs" ] config).startup;
     } cfg.config;
 
     services.hyprpaper = {

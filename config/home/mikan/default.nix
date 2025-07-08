@@ -7,7 +7,13 @@
   ];
 
   linuxMink = {
-    programs.enable = true;
+    programs = {
+      enable = true;
+      startup = [
+        "firefox https://denchisoft.com/"
+        "obs"
+      ];
+    };
     display.wayland.hyprland = {
       enable = true;
       config = {
@@ -27,11 +33,6 @@
         ];
         windowrule = [
           "fullscreenstate -1 2, class:firefox"
-        ];
-        # TODO: startupCommands option
-        exec-once = [
-          "firefox https://denchisoft.com/"
-          "obs"
         ];
       };
     };
