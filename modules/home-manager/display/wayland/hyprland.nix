@@ -2,6 +2,7 @@
   inputs,
   minkpkgs,
   release,
+  homeManagerModule,
   ...
 }@moduleArgs:
 with minkpkgs.lib;
@@ -16,21 +17,12 @@ let
   system = pkgs.stdenv.hostPlatform.system;
   inherit (minkpkgs.legacyPackages.${system}) assets;
   cfg = module.getConfig moduleArgs config;
-  hmModule =
-    let
-      hmPath = inputs.home-manager.outPath;
-      extendedLib = import "${hmPath}/modules/lib/stdlib-extended.nix" lib;
-    in
-    import "${hmPath}/modules/services/window-managers/hyprland.nix" {
-      inherit config pkgs;
-      lib = extendedLib;
-    };
 in
 {
   options = module.setOptions moduleArgs {
     enable = mkEnableOption "Hyprland config";
     hyprpaper.enable = mkEnableOption "Hyprpaper (wallpaper)";
-    config = hmModule.options.wayland.windowManager.hyprland.settings // {
+    config = homeManagerModule.options.wayland.windowManager.hyprland.settings // {
       description = "Hyprland configuration using Nix\n\nSee https://wki.hypr.land/Configuring";
     };
   };

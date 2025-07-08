@@ -23,8 +23,6 @@
   };
   users.groups.mikan = { };
 
-  home-manager.users.mikan = import ../../home/mikan;
-
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -32,5 +30,6 @@
     extraSpecialArgs = {
       inherit assets minkpkgs;
     };
+    users.mikan = import ../../home/mikan;
   };
 }
