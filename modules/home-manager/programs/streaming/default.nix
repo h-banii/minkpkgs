@@ -16,16 +16,21 @@ let
 in
 {
   imports = [
-    (module.import moduleArgs "streaming")
+    (module.import moduleArgs "obs-studio.nix")
   ];
 
   options = module.setOptions moduleArgs {
-    enable = mkEnableOption "default programs";
+    enable = mkEnableOption null // {
+      description = ''
+        Whether to enable default streaming programs:
+        - obs-studio
+      '';
+    };
   };
 
   config = mkIf cfg.enable (
     module.setOptions moduleArgs {
-      streaming.enable = mkDefault true;
+      obs-studio.enable = mkDefault true;
     }
   );
 }
