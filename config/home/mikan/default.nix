@@ -9,8 +9,6 @@
   linuxMink = {
     programs.enable = true;
     display.wayland.hyprland.enable = true;
-
-    # TODO: Move this out of hyprland module
     display.wayland.hyprland.hyprpaper.enable = true;
   };
 
