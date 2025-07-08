@@ -27,6 +27,7 @@ features:
     details: "Options documentation"
     link: /modules/nixos/
   - title: HomeManager Module
-    details: WIP
+    details: "Options documentation"
+    link: /modules/home-manager/
 ---
 
