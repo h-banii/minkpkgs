@@ -1,6 +1,11 @@
 { minkpkgs, ... }@moduleArgs:
 with minkpkgs.lib;
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   inherit (lib)
     mkIf
@@ -18,7 +23,7 @@ in
     enable = mkEnableOption "default programs";
     obs-studio = {
       enable = mkEnableOption "OBS (Open Broadcaster Software)";
-      obs-studio.plugins = mkOption {
+      plugins = mkOption {
         default = [ ];
         example = literalExpression "[ pkgs.obs-studio-plugins.wlrobs ]";
         description = "Optional OBS plugins.";
@@ -37,6 +42,7 @@ in
       programs.obs-studio = {
         enable = true;
         plugins = mkDefault (
+          with pkgs.obs-studio-plugins;
           [
             wlrobs
             obs-pipewire-audio-capture
