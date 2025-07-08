@@ -21,7 +21,12 @@ in
   options = module.setOptions moduleArgs {
     enable = mkEnableOption "OBS (Open Broadcaster Software)";
     plugins = mkOption {
-      default = [ ];
+      default = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-pipewire-audio-capture
+        obs-vaapi
+        obs-vkcapture
+      ];
       example = literalExpression "[ pkgs.obs-studio-plugins.wlrobs ]";
       description = "Optional OBS plugins.";
       type = with types; listOf package;
@@ -31,16 +36,7 @@ in
   config = mkIf cfg.enable {
     programs.obs-studio = {
       enable = true;
-      plugins = mkDefault (
-        with pkgs.obs-studio-plugins;
-        [
-          wlrobs
-          obs-pipewire-audio-capture
-          obs-vaapi
-          obs-vkcapture
-        ]
-        ++ cfg.plugins
-      );
+      plugins = mkDefault cfg.plugins;
     };
   };
 }
