@@ -4,11 +4,14 @@
 
   imports = [
     minkpkgs.homeManagerModules.default
-    ./hyprland.nix
   ];
 
   linuxMink = {
     programs.enable = true;
+    display.wayland.hyprland.enable = true;
+
+    # TODO: Move this out of hyprland module
+    display.wayland.hyprland.hyprpaper.enable = true;
   };
 
   home.packages = with pkgs; [

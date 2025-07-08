@@ -15,5 +15,6 @@ with minkpkgs.lib;
 {
   imports = [
     (module.import moduleArgs "programs.nix")
+    (module.import moduleArgs "display/wayland/hyprland.nix")
   ];
 }
