@@ -30,7 +30,9 @@ in
   options = module.setOptions moduleArgs {
     enable = mkEnableOption "Hyprland config";
     hyprpaper.enable = mkEnableOption "Hyprpaper (wallpaper)";
-    config = hmModule.options.wayland.windowManager.hyprland.settings;
+    config = hmModule.options.wayland.windowManager.hyprland.settings // {
+      description = "Hyprland configuration using Nix\n\nSee https://wki.hypr.land/Configuring";
+    };
   };
 
   config = {
