@@ -35,7 +35,7 @@
       ];
     };
   attrsets = rec {
-    recursiveUpdateUntil =
+    recursiveMergeUpdateUntil =
       pred: lhs: rhs:
       let
         fn =
@@ -63,11 +63,11 @@
     # This behaves the same as nixpkgs.lib.attrsets.recursiveUpdateUntil, but
     # it merges lists instead of overriding them
     #
-    # recursiveUpdate { a.b = [1 2]; } { a.b = [3]; }
+    # recursiveMergeUpdate { a.b = [1 2]; } { a.b = [3]; }
     # => { a.b = [1 2 3]; }
-    recursiveUpdate =
+    recursiveMergeUpdate =
       lhs: rhs:
-      recursiveUpdateUntil (
+      recursiveMergeUpdateUntil (
         path: lhs: rhs:
         !(builtins.isAttrs lhs && builtins.isAttrs rhs)
       ) lhs rhs;
