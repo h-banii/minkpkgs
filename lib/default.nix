@@ -20,7 +20,10 @@
         "$@"
     '';
   evalModuleWithoutCheck =
-    module:
+    {
+      module,
+      args ? { },
+    }:
     lib.evalModules {
       modules = [
         {
@@ -29,6 +32,7 @@
           };
           config = {
             _module.check = false;
+            _module.args = args;
           };
         }
         module

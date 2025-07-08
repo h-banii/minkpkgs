@@ -88,12 +88,25 @@
               config = livecdSystem.config.home-manager.users.mikan;
             };
           };
-          nixosOptionsDoc = pkgs.nixosOptionsDoc {
-            inherit (self.lib.evalModuleWithoutCheck self.nixosModules.default) options;
-          };
-          homeManagerOptionsDoc = pkgs.nixosOptionsDoc {
-            inherit (self.lib.evalModuleWithoutCheck self.homeManagerModules.default) options;
-          };
+          nixosOptionsDoc =
+            let
+              eval = self.lib.evalModuleWithoutCheck {
+                module = self.nixosModules.default;
+              };
+            in
+            pkgs.nixosOptionsDoc {
+              inherit (eval) options;
+            };
+          homeManagerOptionsDoc =
+            let
+              eval = self.lib.evalModuleWithoutCheck {
+                module = self.homeManagerModules.default;
+                args = { inherit pkgs; };
+              };
+            in
+            pkgs.nixosOptionsDoc {
+              inherit (eval) options;
+            };
           inherit assets;
         }
       );
