@@ -34,6 +34,44 @@
         module
       ];
     };
+  attrsets = rec {
+    recursiveUpdateUntil =
+      pred: lhs: rhs:
+      let
+        fn =
+          attrPath:
+          lib.attrsets.zipAttrsWith (
+            name: values:
+            let
+              here = attrPath ++ [ name ];
+              left = builtins.head values;
+            in
+            if builtins.length values == 1 then
+              left
+            else
+              let
+                right = builtins.elemAt values 1;
+              in
+              if pred here left right then
+                if builtins.isList right && builtins.isList left then left ++ right else right
+              else
+                fn here values
+          );
+      in
+      fn [ ] [ lhs rhs ];
+
+    # This behaves the same as nixpkgs.lib.attrsets.recursiveUpdateUntil, but
+    # it merges lists instead of overriding them
+    #
+    # recursiveUpdate { a.b = [1 2]; } { a.b = [3]; }
+    # => { a.b = [1 2 3]; }
+    recursiveUpdate =
+      lhs: rhs:
+      recursiveUpdateUntil (
+        path: lhs: rhs:
+        !(builtins.isAttrs lhs && builtins.isAttrs rhs)
+      ) lhs rhs;
+  };
   module = {
     getConfig =
       { modulePrefix, modulePath, ... }: config: lib.getAttrFromPath (modulePrefix ++ modulePath) config;
