@@ -30,7 +30,10 @@ export default defineConfig({
       },
       {
         text: "Modules",
-        items: [{ text: "NixOS module", link: "/modules/nixos/" }],
+        items: [
+          { text: "NixOS Module", link: "/modules/nixos/" },
+          { text: "Home Manager Module", link: "/modules/home-manager/" },
+        ],
       },
     ],
 
