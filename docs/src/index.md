@@ -15,7 +15,7 @@ hero:
       link: /pages/requirements/install-nix
     - theme: alt
       text: GitHub
-      link: "https://github.com/h-banii/LinuxMink"
+      link: "https://github.com/h-banii/LinuxMink/tree/stable"
 
 features:
   - title: Live CD
