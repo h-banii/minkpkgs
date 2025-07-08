@@ -77,15 +77,13 @@
       ) lhs rhs;
   };
   module = {
-    getConfig =
-      { modulePrefix, modulePath, ... }: config: lib.getAttrFromPath (modulePrefix ++ modulePath) config;
+    getConfig = { modulePrefix, modulePath, ... }: lib.getAttrFromPath (modulePrefix ++ modulePath);
 
     getSuperConfig =
       { modulePrefix, modulePath, ... }:
-      config: lib.getAttrFromPath (modulePrefix ++ (lib.lists.init modulePath)) config;
+      lib.getAttrFromPath (modulePrefix ++ (lib.lists.init modulePath));
 
-    setOptions =
-      { modulePrefix, modulePath, ... }: args: lib.setAttrByPath (modulePrefix ++ modulePath) args;
+    setOptions = { modulePrefix, modulePath, ... }: lib.setAttrByPath (modulePrefix ++ modulePath);
 
     # This assumes module path and file path match.
     import =
