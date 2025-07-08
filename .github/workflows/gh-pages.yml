@@ -2,9 +2,10 @@ name: Deploy GitHub Pages
 
 on:
   push:
-    branches: [master]
+    branches: [stable]
     paths:
-      - 'flake.lock'
+      - 'docs/**'
+      - 'modules/**'
   workflow_dispatch:
 
 permissions:
