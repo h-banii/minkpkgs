@@ -6,7 +6,7 @@ Run it in a virtual machine (qemu)
 
 ```console
 $ export QEMU_OPTS='-m 4G -device virtio-vga-gl -display gtk,gl=on'
-$ nix run github:h-banii/LinuxMink#livecd.vm
+$ nix run github:h-banii/LinuxMink/stable#livecd.vm
 ```
 
 ## ISO Image
@@ -14,7 +14,7 @@ $ nix run github:h-banii/LinuxMink#livecd.vm
 Build the iso image
 
 ```sh
-nix build github:h-banii/LinuxMink#livecd.isoImage
+nix build github:h-banii/LinuxMink/stable#livecd.isoImage
 ```
 
 Write the iso to an usb stick (≥4GB)
