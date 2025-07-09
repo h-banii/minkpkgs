@@ -1,4 +1,5 @@
-installer: {
+installer:
+{
   lib,
   isoWithCompression ? true,
   release,
