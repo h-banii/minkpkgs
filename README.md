@@ -36,7 +36,9 @@ nix build github:h-banii/LinuxMink#livecd.isoImage
 
 https://h-banii.github.io/LinuxMink/modules/nixos/
 
-### Home Manager Module (WIP)
+### Home Manager Module
+
+https://h-banii.github.io/LinuxMink/modules/home-manager/
 
 ## MikanTheMink
 
