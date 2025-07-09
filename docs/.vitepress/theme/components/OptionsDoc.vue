@@ -26,7 +26,7 @@
           <div v-if="value.example.text.includes('\n')" class="language-nix">
             <pre><code v-html="value.example.text"></code></pre>
           </div>
-          <code v-else v-html="value.default.text"></code>
+          <code v-else v-html="value.example.text"></code>
         </div>
       </div>
     </div>
