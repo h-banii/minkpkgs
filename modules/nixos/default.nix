@@ -31,12 +31,12 @@ in
   ];
 
   options = module.setOptions moduleArgs {
-    setOSRelease = mkEnableOption null // {
-      description = "Whether to set /etc/os-release";
+    modifyOSRelease = mkEnableOption null // {
+      description = "Whether to modify /etc/os-release";
     };
   };
 
-  config = mkIf cfg.setOSRelease {
+  config = mkIf cfg.modifyOSRelease {
     system.nixos = release;
   };
 }

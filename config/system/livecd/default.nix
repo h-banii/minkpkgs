@@ -15,7 +15,7 @@
   ];
 
   linuxMink = {
-    setOSRelease = true;
+    modifyOSRelease = true;
     greeter.enable = true;
     display.wayland = {
       uwsm.enable = true;
