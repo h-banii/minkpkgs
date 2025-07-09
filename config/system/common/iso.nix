@@ -1,4 +1,4 @@
-{
+installer: {
   lib,
   isoWithCompression ? true,
   release,
@@ -8,7 +8,7 @@
 }:
 {
   imports = [
-    (modulesPath + "/installer/cd-dvd/installation-cd-graphical-base.nix")
+    (modulesPath + "/installer/cd-dvd/installation-cd-${installer}.nix")
   ];
 
   isoImage = {
