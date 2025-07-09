@@ -8,7 +8,7 @@
   ];
 
   imports = [
-    ./iso.nix
+    (import ../common/iso.nix "graphical-base")
     ./home.nix
   ];
 
