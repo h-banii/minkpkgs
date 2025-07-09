@@ -79,6 +79,8 @@
   module = {
     getConfig = { modulePrefix, modulePath, ... }: lib.getAttrFromPath (modulePrefix ++ modulePath);
 
+    getRootConfig = { modulePrefix, ... }: path: lib.getAttrFromPath (modulePrefix ++ path);
+
     getSuperConfig =
       { modulePrefix, modulePath, ... }:
       lib.getAttrFromPath (modulePrefix ++ (lib.lists.init modulePath));
