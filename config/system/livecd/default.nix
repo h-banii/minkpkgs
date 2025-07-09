@@ -1,4 +1,5 @@
 {
+  minkpkgs,
   ...
 }:
 {
@@ -8,6 +9,7 @@
   ];
 
   imports = [
+    minkpkgs.nixosModules.default
     (import ../common/iso.nix "graphical-base")
     ./home.nix
   ];

@@ -71,7 +71,6 @@
               isoWithCompression = false;
             };
             modules = [
-              self.nixosModules.default
               ./config/system/livecd
             ];
           };
