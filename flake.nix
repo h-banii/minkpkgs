@@ -68,10 +68,19 @@
             specialArgs = {
               minkpkgs = self;
               inherit inputs release assets;
-              isoWithCompression = false;
             };
             modules = [
               ./config/system/livecd
+            ];
+          };
+          minimalInstallerSystem = lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              minkpkgs = self;
+              inherit inputs release assets;
+            };
+            modules = [
+              ./config/system/installer/minimal.nix
             ];
           };
         in
@@ -81,6 +90,9 @@
               iso = self.legacyPackages.${system}.livecd.isoImage;
               withUefi = true;
             };
+          };
+          installer = {
+            minimal = minimalInstallerSystem.config.system.build;
           };
           dotfiles = {
             hyprland = pkgs.callPackage self.lib.hm.mkDotfiles.hyprland {
