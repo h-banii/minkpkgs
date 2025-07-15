@@ -7,6 +7,7 @@
   ];
 
   linuxMink = {
+    system.fetch.fastfetch.enable = true;
     programs = {
       enable = true;
       startup = [
