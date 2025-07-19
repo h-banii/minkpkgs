@@ -11,10 +11,7 @@
   imports = [
     minkpkgs.nixosModules.default
     (import ../common/iso.nix "minimal")
-    ./config.nix
   ];
 
-  linuxMink = {
-    modifyOSRelease = true;
-  };
+  linuxMink = import ./mink.nix;
 }
