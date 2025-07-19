@@ -85,6 +85,16 @@
               ./config/system/installer/minimal.nix
             ];
           };
+          graphicalInstallerSystem = lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              minkpkgs = self;
+              inherit inputs release assets;
+            };
+            modules = [
+              ./config/system/installer/graphical.nix
+            ];
+          };
         in
         {
           livecd = livecdSystem.config.system.build // {
@@ -95,6 +105,7 @@
           };
           installer = {
             minimal = minimalInstallerSystem.config.system.build;
+            graphical = graphicalInstallerSystem.config.system.build;
           };
           dotfiles = {
             hyprland = pkgs.callPackage self.lib.hm.mkDotfiles.hyprland {
