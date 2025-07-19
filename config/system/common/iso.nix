@@ -1,7 +1,6 @@
 installer:
 {
   lib,
-  isoWithCompression ? true,
   release,
   modulesPath,
   assets,
@@ -18,6 +17,5 @@ installer:
     splashImage = assets.logo;
     efiSplashImage = assets.wallpaper;
     grubTheme = null;
-    squashfsCompression = lib.mkIf (!isoWithCompression) "gzip -Xcompression-level 1";
   };
 }
