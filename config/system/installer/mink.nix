@@ -1,5 +1,5 @@
 let
-  escapePerlSymbols = builtins.replaceStrings [ "$" ] [ "\\$" ];
+  escapePerlSymbols = builtins.replaceStrings [ "$" "@" ] [ "\\$" "\\@" ];
 in
 {
   modifyOSRelease = true;
