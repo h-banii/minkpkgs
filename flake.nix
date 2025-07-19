@@ -82,7 +82,7 @@
               inherit inputs release assets;
             };
             modules = [
-              ./config/system/installer/minimal.nix
+              ./config/system/installer/minimal
             ];
           };
           graphicalInstallerSystem = lib.nixosSystem {

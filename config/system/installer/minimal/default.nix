@@ -10,7 +10,7 @@
 
   imports = [
     minkpkgs.nixosModules.default
-    (import ../common/iso.nix "minimal")
+    (import ../../common/iso.nix "minimal")
   ];
 
   isoImage.edition = "minimal";
