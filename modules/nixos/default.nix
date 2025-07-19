@@ -25,6 +25,7 @@ let
     mkOption
     mkEnableOption
     ;
+  system = pkgs.stdenv.hostPlatform.system;
   cfg = minkpkgs.lib.module.getConfig moduleArgs config;
 in
 {
@@ -83,8 +84,11 @@ in
               };
             };
 
-            outputs = { self, nixpkgs, minkpkgs, home-manager, ... }\@inputs: {
+            outputs = { self, nixpkgs, minkpkgs, home-manager, ... }\@inputs: let
+              system = "${system}";
+            in {
               nixosConfigurations.${config.networking.hostName} = nixpkgs.lib.nixosSystem {
+                inherit system;
                 specialArgs = {
                   inherit minkpkgs inputs;
                 };
@@ -127,6 +131,8 @@ in
                   ./configuration.nix
                 ];
               };
+
+              formatter.\''${system} = pkgs.nixfmt-tree;
             };
           }
         '';
