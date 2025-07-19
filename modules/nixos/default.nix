@@ -54,12 +54,12 @@ in
             Default ${release.distroName} configuration installed by
             nixos-generate-config
           '';
-          default = ''# System Options'';
+          default = ''{ # System Options }'';
           type = lib.types.str;
         };
         home = mkOption {
           description = "Default ${release.distroName} home configuration";
-          default = ''# Home Options'';
+          default = ''{ # Home Options }'';
           type = lib.types.str;
         };
       };
@@ -91,11 +91,22 @@ in
                 modules = [
                   minkpkgs.nixosModules.default
                   home-manager.nixosModules.default
+
+                  # System configuration
                   {
-                    ${base} = {
-                      ${cfg.installer.configuration.system}
+                    ${base} = ${cfg.installer.configuration.system};
+
+                    home-manager = {
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
+                      backupFileExtension = "home-manager-bak";
+                      extraSpecialArgs = {
+                        inherit minkpkgs inputs;
+                      };
                     };
                   }
+
+                  # User configuration
                   {
                     users.users.mikan = {
                       isNormalUser = true;
@@ -108,18 +119,9 @@ in
                     };
                     users.groups.mikan = { };
 
-                    home-manager = {
-                      useGlobalPkgs = true;
-                      useUserPackages = true;
-                      backupFileExtension = "home-manager-bak";
-                      extraSpecialArgs = {
-                        inherit minkpkgs inputs;
-                      };
-                      users.mikan = {
-                        ${base} = {
-                          ${cfg.installer.configuration.home}
-                        };
-                      };
+                    home-manager.users.mikan = {
+                      # Home configuration for the mikan user
+                      ${base} = ${cfg.installer.configuration.home};
                     };
                   }
                   ./configuration.nix
