@@ -58,5 +58,7 @@
       };
     };
 
-  linuxMink = import ./mink.nix;
+  linuxMink = {
+    modifyOSRelease = true;
+  };
 }

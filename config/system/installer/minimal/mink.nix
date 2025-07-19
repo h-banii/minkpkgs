@@ -6,8 +6,8 @@ in
   installer = {
     enable = true;
     configuration = {
-      system = escapePerlSymbols (builtins.readFile ../livecd/mink.nix);
-      home = escapePerlSymbols (builtins.readFile ../../home/mikan/mink.nix);
+      system = escapePerlSymbols (builtins.readFile ../../livecd/mink.nix);
+      home = escapePerlSymbols (builtins.readFile ../../../home/mikan/mink.nix);
     };
   };
 }
