@@ -15,7 +15,7 @@ installer:
 
   isoImage = {
     appendToMenuLabel = "";
-    isoBaseName = "${release.distroId}${
+    isoBaseName = lib.mkForce "${release.distroId}${
       lib.optionalString (config.isoImage.edition != "") "-${config.isoImage.edition}"
     }-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
     splashImage = assets.logo;
