@@ -1,16 +1,14 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/25.05";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     greeter = {
       url = "github:h-banii/astal-greeter";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.url = "github:NixOS/nixpkgs/25.05";
     };
-    docs.url = "path:docs";
   };
 
   outputs =
@@ -37,12 +35,16 @@
           pkgs = pkgsFor.${system};
           nixosOptionsJSON = self.legacyPackages.${system}.nixosOptionsDoc.optionsJSON;
           homeManagerOptionsJSON = self.legacyPackages.${system}.homeManagerOptionsDoc.optionsJSON;
+          docs-flake = (import ./docs/flake.nix).outputs {
+            inherit nixpkgs;
+            inherit systems;
+          };
         in
         {
           docs = pkgs.symlinkJoin {
             name = "mikan-docs";
             paths = [
-              inputs.docs.packages.${system}.default
+              docs-flake.packages.${system}.default
               (pkgs.linkFarm "mikan-modules-docs" [
                 {
                   name = "nixos-options.json";
