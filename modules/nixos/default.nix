@@ -83,7 +83,7 @@ in
               };
             };
 
-            outputs = { self, nixpkgs, minkpkgs, home-manager, ... }@inputs: {
+            outputs = { self, nixpkgs, minkpkgs, home-manager, ... }\@inputs: {
               nixosConfigurations.${config.networking.hostName} = nixpkgs.lib.nixosSystem {
                 specialArgs = {
                   inherit minkpkgs inputs;
