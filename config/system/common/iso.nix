@@ -4,6 +4,8 @@ installer:
   release,
   modulesPath,
   assets,
+  pkgs,
+  config,
   ...
 }:
 {
@@ -13,7 +15,9 @@ installer:
 
   isoImage = {
     appendToMenuLabel = "";
-    isoBaseName = lib.mkForce release.distroId;
+    isoBaseName = "${release.distroId}${
+      lib.optionalString (config.isoImage.edition != "") "-${config.isoImage.edition}"
+    }-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
     splashImage = assets.logo;
     efiSplashImage = assets.wallpaper;
     grubTheme = null;

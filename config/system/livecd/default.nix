@@ -14,5 +14,7 @@
     ./home.nix
   ];
 
+  isoImage.edition = "livecd";
+
   linuxMink = import ./mink.nix;
 }
