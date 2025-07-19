@@ -14,12 +14,5 @@
     ./home.nix
   ];
 
-  linuxMink = {
-    modifyOSRelease = true;
-    greeter.enable = true;
-    display.wayland = {
-      uwsm.enable = true;
-      hyprland.enable = true;
-    };
-  };
+  linuxMink = import ./mink.nix;
 }
