@@ -48,13 +48,20 @@ in
           See nixos/modules/installer/tools/tools.nix
         '';
       };
-      config = mkOption {
-        description = ''
-          Default ${release.distroName} configuration installed by
-          nixos-generate-config
-        '';
-        default = ''# Options'';
-        type = lib.types.str;
+      configuration = {
+        system = mkOption {
+          description = ''
+            Default ${release.distroName} configuration installed by
+            nixos-generate-config
+          '';
+          default = ''# System Options'';
+          type = lib.types.str;
+        };
+        home = mkOption {
+          description = "Default ${release.distroName} home configuration";
+          default = ''# Home Options'';
+          type = lib.types.str;
+        };
       };
     };
   };
@@ -70,15 +77,49 @@ in
             inputs = {
               nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
               minkpkgs.url = "github:h-banii/LinuxMink/stable";
+              home-manager = {
+                url = "github:nix-community/home-manager";
+                inputs.nixpkgs.follows = "nixpkgs";
+              };
             };
 
-            outputs = { self, nixpkgs, minkpkgs, ... }: {
+            outputs = { self, nixpkgs, minkpkgs, home-manager, ... }@inputs: {
               nixosConfigurations.${config.networking.hostName} = nixpkgs.lib.nixosSystem {
+                specialArgs = {
+                  inherit minkpkgs inputs;
+                };
                 modules = [
                   minkpkgs.nixosModules.default
+                  home-manager.nixosModules.default
                   {
                     ${base} = {
-                      ${cfg.installer.config}
+                      ${cfg.installer.configuration.system}
+                    };
+                  }
+                  {
+                    users.users.mikan = {
+                      isNormalUser = true;
+                      group = "mikan";
+                      extraGroups = [
+                        "wheel"
+                        "networkmanager"
+                        "video"
+                      ];
+                    };
+                    users.groups.mikan = { };
+
+                    home-manager = {
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
+                      backupFileExtension = "home-manager-bak";
+                      extraSpecialArgs = {
+                        inherit minkpkgs inputs;
+                      };
+                      users.mikan = {
+                        ${base} = {
+                          ${cfg.installer.configuration.home}
+                        };
+                      };
                     };
                   }
                   ./configuration.nix
