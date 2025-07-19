@@ -77,15 +77,12 @@ in
           {
             inputs = {
               nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-              minkpkgs.url = "github:h-banii/LinuxMink/stable";
-              home-manager = {
-                url = "github:nix-community/home-manager";
-                inputs.nixpkgs.follows = "nixpkgs";
-              };
+              minkpkgs.url = "github:h-banii/LinuxMink";
             };
 
-            outputs = { self, nixpkgs, minkpkgs, home-manager, ... }\@inputs: let
+            outputs = { self, nixpkgs, minkpkgs, ... }\@inputs: let
               system = "${system}";
+              pkgs = nixpkgs.legacyPackages.${system};
             in {
               nixosConfigurations.${config.networking.hostName} = nixpkgs.lib.nixosSystem {
                 inherit system;
@@ -94,7 +91,7 @@ in
                 };
                 modules = [
                   minkpkgs.nixosModules.default
-                  home-manager.nixosModules.default
+                  minkpkgs.inputs.home-manager.nixosModules.default
 
                   # System configuration
                   {
