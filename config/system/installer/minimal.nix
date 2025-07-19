@@ -13,5 +13,7 @@
     (import ../common/iso.nix "minimal")
   ];
 
+  isoImage.edition = "minimal";
+
   linuxMink = import ./mink.nix;
 }
