@@ -2,6 +2,7 @@
   minkpkgs,
   inputs,
   config,
+  pkgs,
   ...
 }:
 {
@@ -13,9 +14,12 @@
   ];
 
   # Linux Mink system options
-  linuxMink = {
-    # TODO: auto generate?
-  };
+  # system-config #
+
+  # System packages
+  environment.systemPackages = with pkgs; [
+    hello
+  ];
 
   # Replace 'mikan' with your desired user name
   users = {

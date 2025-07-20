@@ -1,14 +1,24 @@
-{ minkpkgs, systemConfig, ... }:
+{
+  minkpkgs,
+  pkgs,
+  systemConfig,
+  ...
+}:
 {
   imports = [
     minkpkgs.homeManagerModules.default
   ];
 
   # Linux Mink home options
-  linuxMink = {
-    # TODO: auto generate?
-  };
+  # home-config #
 
+  # User packages
+  home.packages = with pkgs; [
+    hello
+  ];
+
+  # User packages with settings
+  # https://nix-community.github.io/home-manager/options.xhtml
   programs.foot.enable = true;
   programs.firefox.enable = true;
 

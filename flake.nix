@@ -133,7 +133,10 @@
             };
           inherit assets;
         }
-        // pkgs.callPackage ./pkgs { }
+        // pkgs.callPackage ./pkgs {
+          inherit system;
+          minkpkgs = self;
+        }
       );
 
       nixosModules.default = import ./modules/nixos {
