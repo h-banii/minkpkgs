@@ -22,7 +22,6 @@ let
   inherit (lib)
     mkIf
     mkMerge
-    mkOption
     mkEnableOption
     ;
   system = pkgs.stdenv.hostPlatform.system;
@@ -38,30 +37,17 @@ in
     modifyOSRelease = mkEnableOption null // {
       description = "Whether to modify /etc/os-release";
     };
-    installer = {
-      enable = mkEnableOption null // {
-        description = ''
-          Whether to modify NixOS install tools (nixos-generate-config) to
-          generate a custom initial configuration for ${release.distroName}.
-
-          This is useful during installation.
-
-          See nixos/modules/installer/tools/tools.nix
-        '';
-      };
-      configuration = {
-        system = mkOption {
+    system = {
+      install-tools = {
+        enable = mkEnableOption null // {
           description = ''
-            Default ${release.distroName} configuration installed by
-            nixos-generate-config
+            Whether to modify NixOS install tools (nixos-generate-config) to
+            generate a custom initial configuration for ${release.distroName}.
+
+            This is useful during installation.
+
+            See nixos/modules/installer/tools/tools.nix
           '';
-          default = ''{ # System Options }'';
-          type = lib.types.str;
-        };
-        home = mkOption {
-          description = "Default ${release.distroName} home configuration";
-          default = ''{ # Home Options }'';
-          type = lib.types.str;
         };
       };
     };
@@ -71,69 +57,10 @@ in
     (mkIf cfg.modifyOSRelease {
       system.nixos = release;
     })
-    (mkIf cfg.installer.enable {
-      system.nixos-generate-config = {
-        flake = ''
-          {
-            inputs = {
-              nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-              minkpkgs.url = "github:h-banii/LinuxMink";
-            };
-
-            outputs = { self, nixpkgs, minkpkgs, ... }\@inputs: let
-              system = "${system}";
-              pkgs = nixpkgs.legacyPackages.${system};
-            in {
-              nixosConfigurations.${config.networking.hostName} = nixpkgs.lib.nixosSystem {
-                inherit system;
-                specialArgs = {
-                  inherit minkpkgs inputs;
-                };
-                modules = [
-                  minkpkgs.nixosModules.default
-                  minkpkgs.inputs.home-manager.nixosModules.default
-
-                  # System configuration
-                  {
-                    ${base} = ${cfg.installer.configuration.system};
-
-                    home-manager = {
-                      useGlobalPkgs = true;
-                      useUserPackages = true;
-                      backupFileExtension = "home-manager-bak";
-                      extraSpecialArgs = {
-                        inherit minkpkgs inputs;
-                      };
-                    };
-                  }
-
-                  # User configuration
-                  {
-                    users.users.mikan = {
-                      isNormalUser = true;
-                      group = "mikan";
-                      extraGroups = [
-                        "wheel"
-                        "networkmanager"
-                        "video"
-                      ];
-                    };
-                    users.groups.mikan = { };
-
-                    home-manager.users.mikan = {
-                      # Home configuration for the mikan user
-                      ${base} = ${cfg.installer.configuration.home};
-                    };
-                  }
-                  ./configuration.nix
-                ];
-              };
-
-              formatter.\''${system} = pkgs.nixfmt-tree;
-            };
-          }
-        '';
-      };
+    (mkIf cfg.system.install-tools.enable {
+      environment.systemPackages = [
+        minkpkgs.packages.${system}.mink-install-tools
+      ];
     })
   ];
 }
