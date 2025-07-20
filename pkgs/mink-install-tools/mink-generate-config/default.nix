@@ -98,8 +98,8 @@ writeShellApplication rec {
           shift 2
           ;;
         *)
-          printf "Unrecognized argument... %s\n" "$1"
-          shift
+          printf "Unrecognized argument: %s\n\n" "$*"
+          set -- "--help"
       esac
     done
 
