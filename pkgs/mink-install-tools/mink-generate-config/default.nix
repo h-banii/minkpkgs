@@ -80,9 +80,9 @@ writeShellApplication rec {
     nixfmt-rfc-style
   ];
   text = ''
-    while [[ $# -gt 0 ]]; do
-      case $1 in
-        --help)
+    while : ; do
+      case "''${1:-}" in
+        ""|--help)
           printf "${name}\n"
           printf "Flags:\n--help\n--version\n"
           printf "  --dir [path]\n    config will be saved at [path]\n"
@@ -101,6 +101,9 @@ writeShellApplication rec {
           printf "Unrecognized argument: %s\n\n" "$*"
           set -- "--help"
       esac
+      if ! [[ $# -gt 0 ]]; then
+        break
+      fi
     done
 
     printf "Generating NixOS configuration...\n"
