@@ -16,10 +16,6 @@ let
   cfg = module.getConfig moduleArgs config;
 in
 {
-  imports = [
-    (module.import moduleArgs "streaming")
-  ];
-
   options = module.setOptions moduleArgs {
     enable = mkEnableOption "default programs";
     startup = mkOption {

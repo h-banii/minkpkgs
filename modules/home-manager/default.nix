@@ -39,6 +39,7 @@ in
     }
     (module.import moduleArgs "display/wayland/hyprland.nix")
     (module.import moduleArgs "programs")
+    (module.import moduleArgs "streaming")
     (module.import moduleArgs "system")
   ];
 }
