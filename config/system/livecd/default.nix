@@ -17,7 +17,7 @@
   isoImage.edition = "livecd";
 
   linuxMink = {
-    modifyOSRelease = true;
+    system.branding.enable = true;
     greeter.enable = true;
     display.wayland = {
       uwsm.enable = true;

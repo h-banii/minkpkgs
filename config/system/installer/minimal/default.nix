@@ -16,7 +16,7 @@
   isoImage.edition = "minimal";
 
   linuxMink = {
-    modifyOSRelease = true;
+    system.branding.enable = true;
     system.install-tools.enable = true;
   };
 }

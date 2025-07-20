@@ -59,6 +59,6 @@
     };
 
   linuxMink = {
-    modifyOSRelease = true;
+    system.branding.enable = true;
   };
 }
