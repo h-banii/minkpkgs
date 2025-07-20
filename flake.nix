@@ -58,7 +58,10 @@
             ];
           };
         }
-        // pkgs.callPackage ./pkgs { }
+        // pkgs.callPackage ./pkgs {
+          inherit system;
+          minkpkgs = self;
+        }
       );
 
       legacyPackages = forAllSystems (

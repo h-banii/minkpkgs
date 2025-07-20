@@ -11,6 +11,7 @@ let
     mkIf
     mkMerge
     mkEnableOption
+    literalExpression
     ;
   system = pkgs.stdenv.hostPlatform.system;
   inherit (minkpkgs.legacyPackages.${system}) assets;
@@ -23,6 +24,32 @@ in
         enable = mkEnableOption "Whether to enable fastfetch";
         settings = homeManagerModule.options.programs.fastfetch.settings // {
           description = "Fastfetch settings";
+          example = literalExpression ''
+            {
+              display = {
+                size = {
+                  binaryPrefix = "si";
+                };
+                color = "blue";
+                separator = "  ";
+              };
+              modules = [
+                {
+                  type = "datetime";
+                  key = "Date";
+                  format = "{1}-{3}-{11}";
+                }
+                {
+                  type = "datetime";
+                  key = "Time";
+                  format = "{14}:{17}:{20}";
+                }
+                "break"
+                "player"
+                "media"
+              ];
+            }
+          '';
         };
       };
     };
