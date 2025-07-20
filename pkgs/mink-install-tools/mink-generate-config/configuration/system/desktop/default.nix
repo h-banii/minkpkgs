@@ -10,7 +10,7 @@
     minkpkgs.nixosModules.default
     minkpkgs.inputs.home-manager.nixosModules.default
     ./configuration.nix
-    ./hardware.nix
+    ./hardware-configuration.nix
   ];
 
   # Linux Mink system options
