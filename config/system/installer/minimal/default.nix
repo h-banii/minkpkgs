@@ -15,5 +15,8 @@
 
   isoImage.edition = "minimal";
 
-  linuxMink = import ./mink.nix;
+  linuxMink = {
+    modifyOSRelease = true;
+    system.install-tools.enable = true;
+  };
 }
