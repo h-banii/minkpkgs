@@ -58,6 +58,7 @@
             ];
           };
         }
+        // pkgs.callPackage ./pkgs { }
       );
 
       legacyPackages = forAllSystems (
