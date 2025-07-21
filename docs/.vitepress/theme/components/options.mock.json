@@ -16,10 +16,6 @@
   },
   "linuxMink.display.wayland.hyprland.enable": {
     "declarations": [],
-    "default": {
-      "_type": "literalExpression",
-      "text": "false"
-    },
     "description": "Whether to enable Hyprland config.",
     "example": {
       "_type": "literalExpression",
@@ -36,10 +32,6 @@
       "text": "false"
     },
     "description": "Whether to enable Hyprpaper (wallpaper).",
-    "example": {
-      "_type": "literalExpression",
-      "text": "true"
-    },
     "loc": [
       "linuxMink",
       "display",
