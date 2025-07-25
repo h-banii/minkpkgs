@@ -93,7 +93,12 @@
             inherit system;
             specialArgs = {
               minkpkgs = self;
-              inherit inputs release assets;
+              inherit
+                inputs
+                release
+                assets
+                system
+                ;
             };
             modules = [
               ./config/system/installer/graphical.nix

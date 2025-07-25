@@ -2,8 +2,12 @@
   assets,
   minkpkgs,
   pkgs,
+  system,
   ...
 }:
+let
+  inherit (minkpkgs.packages.${system}) calamares-mink-extensions;
+in
 {
   isoImage.edition = "graphical";
 
@@ -21,7 +25,7 @@
     systemPackages = with pkgs; [
       libsForQt5.kpmcore
       calamares-nixos
-      calamares-nixos-extensions
+      calamares-mink-extensions
       glibcLocales
       foot
       hyprland
