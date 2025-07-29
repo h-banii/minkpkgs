@@ -1,9 +1,12 @@
+#version 300 es
+
 precision lowp float;
 
 #define SCALE 1.25
 const vec3 COLOR = vec3(1.0, 0.435, 0.); // orange
 
-varying vec2 v_texcoord;
+out vec4 fragColor;
+in vec2 v_texcoord;
 uniform sampler2D tex;
 
 float max_vec3(vec3 pixel) {
@@ -31,6 +34,6 @@ vec4 transform(vec4 pixel) {
 }
 
 void main() {
-  vec4 pixel = texture2D(tex, v_texcoord);
-  gl_FragColor = transform(pixel);
+  vec4 pixel = texture(tex, v_texcoord);
+  fragColor = transform(pixel);
 }
