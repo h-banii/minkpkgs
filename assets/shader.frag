@@ -17,7 +17,7 @@ float min_vec3(vec3 pixel) {
   return min(min(pixel.r, pixel.g), pixel.b);
 }
 
-vec3 step(vec3 pixel, float scale) {
+vec3 iteration_step(vec3 pixel, float scale) {
   return pixel.rgb + (COLOR - pixel.rgb) * scale;
 }
 
@@ -27,7 +27,7 @@ vec4 transform(vec4 pixel) {
 
   float scale = min(SCALE * (max_cmp - min_cmp), 1.0);
 
-  pixel.rgb = step(pixel.rgb, scale);
+  pixel.rgb = iteration_step(pixel.rgb, scale);
   pixel.rgb *= max_cmp / max_vec3(pixel.rgb);
 
   return pixel;
