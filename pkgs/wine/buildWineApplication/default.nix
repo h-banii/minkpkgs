@@ -140,6 +140,7 @@ stdenvNoCC.mkDerivation {
   buildCommand = ''
     mkdir -p $out/bin
     echo -n "$text" > $out/bin/${pname}
+    chmod +x $out/bin/${pname}
     runHook postInstall
   '';
 
