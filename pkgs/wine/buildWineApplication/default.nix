@@ -73,6 +73,13 @@ let
     let
       tricks = [ ] ++ lib.optional withCjk "cjkfonts" ++ extraTricks;
       tricksString = lib.lists.foldl (elm: acc: acc + toString (elm)) "" tricks;
+      buildScript = ''
+        wineboot -u
+        winecfg /v ${windowsVersion}
+      ''
+      + lib.optionalString (tricks != [ ]) ''
+        winetricks --unattended ${tricksString}
+      '';
     in
     writeWineApplication {
       name = "wine-build";
@@ -84,20 +91,19 @@ let
       text = ''
         printf "\e[1mModifying wine prefix...\e[0m\n"
         mkdir -pv "$WINEPREFIX"
-        wineboot -u
-        winecfg /v ${windowsVersion}
-      ''
-      + lib.optionalString (tricks != [ ]) ''
-        winetricks --unattended ${tricksString}
-      ''
-      + ''
-        COMMAND="''${1:-install}"
+
+        COMMAND="''${1:-""}"
 
         case "$COMMAND" in
+          --build)
+            ${buildScript}
+            ;;
           --install)
             wine ${installer}
             ;;
-          --no-install|*)
+          *)
+            ${buildScript}
+            wine ${installer}
             ;;
         esac
       '';
@@ -116,15 +122,15 @@ let
       COMMAND="''${1:-${executable}}"
 
       case "$COMMAND" in
-        build|rebuild|update)
-          wine-build --no-install
+        build|update)
+          wine-build --build
           ;;
-        install|reinstall)
+        install)
           wine-build --install
           ;;
         *)
           if [ ! -d "$WINEPREFIX" ]; then
-            wine-build --install
+            wine-build
           fi
           wine "$COMMAND"
           ;;
