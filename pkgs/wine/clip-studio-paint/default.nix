@@ -1,4 +1,5 @@
 {
+  lib,
   buildWineApplication,
   fetchurl,
   wineWowPackages,
@@ -47,4 +48,9 @@ buildWineApplication rec {
       categories = [ "Graphics" ];
     })
   ];
+
+  meta = {
+    licenses = lib.licenses.unfree;
+    description = "Digital art studio made by Celsys";
+  };
 }
