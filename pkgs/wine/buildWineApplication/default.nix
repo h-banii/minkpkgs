@@ -9,6 +9,7 @@
   pname,
   version,
   installer,
+  executable ? "explorer",
 
   winePackage ? wineWowPackages.staging,
   winetricksPackage ? winetricks,
@@ -61,7 +62,7 @@ let
       ];
 
       text = ''
-        printf "\e[1mCreating wine prefix...\e[0m\n"
+        printf "\e[1mModifying wine prefix...\e[0m\n"
         mkdir -pv "$WINEPREFIX"
         wineboot -u
         winecfg /v ${windowsVersion}
@@ -81,23 +82,13 @@ let
         esac
       '';
     };
-
-  runner = writeWineApplication {
-    name = "wine-run";
-
-    runtimeInputs = [ winePackage ];
-
-    text = ''
-      printf "\e[1mCreating wine prefix...\e[0m\n"
-    '';
-  };
 in
 writeWineApplication {
   name = pname;
 
   runtimeInputs = [
     builder
-    runner
+    winePackage
   ];
 
   text = ''
@@ -116,9 +107,9 @@ writeWineApplication {
         ;;
       run)
         if [ ! -d "$WINEPREFIX" ]; then
-          wine-build
+          wine-build --install
         fi
-        wine-run
+        wine '${executable}'
         ;;
     esac
 
