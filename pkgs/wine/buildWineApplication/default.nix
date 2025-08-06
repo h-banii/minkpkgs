@@ -37,7 +37,9 @@ let
       WINEARCH = if use32Bit then "win32" else "win64";
     in
     {
+      text,
       derivationArgs ? { },
+      runtimeInputs ? [ ],
       ...
     }@args:
     writeShellApplication (
@@ -48,6 +50,8 @@ let
         }
         // derivationArgs;
 
+        runtimeInputs = [ winePackage ] ++ runtimeInputs;
+
         runtimeEnv = {
           inherit WINEARCH;
         };
@@ -56,11 +60,12 @@ let
         text = ''
           export WINEPREFIX="${WINEPREFIX}"
         ''
-        + args.text;
+        + text;
       }
       // (builtins.removeAttrs args [
         "text"
         "derivationArgs"
+        "runtimeInputs"
       ])
     );
 
@@ -73,7 +78,6 @@ let
       name = "wine-build";
 
       runtimeInputs = [
-        winePackage
         winetricksPackage
       ];
 
@@ -98,6 +102,37 @@ let
         esac
       '';
     };
+
+  runner = writeWineApplication {
+    name = pname;
+
+    runtimeInputs = [ builder ];
+
+    text = ''
+      for var in WINEPREFIX WINEARCH; do
+        printf '\e[1;35m%s: \e[0m%s\n' "$var" "''${!var:-""}"
+      done
+
+      COMMAND="''${1:-${executable}}"
+
+      case "$COMMAND" in
+        build|rebuild|update)
+          wine-build --no-install
+          ;;
+        install|reinstall)
+          wine-build --install
+          ;;
+        *)
+          if [ ! -d "$WINEPREFIX" ]; then
+            wine-build --install
+          fi
+          wine "$COMMAND"
+          ;;
+      esac
+
+      wineserver -k
+    '';
+  };
 in
 stdenvNoCC.mkDerivation {
   inherit pname version desktopItems;
@@ -106,41 +141,10 @@ stdenvNoCC.mkDerivation {
     copyDesktopItems
   ];
 
-  buildInputs = [
-    builder
-  ];
-
-  text = ''
-    #!${runtimeShell}
-
-    for var in WINEPREFIX WINEARCH; do
-      printf '\e[1;35m%s: \e[0m%s\n' "$var" "''${!var:-""}"
-    done
-
-    COMMAND="''${1:-${executable}}"
-
-    case "$COMMAND" in
-      build|rebuild|update)
-        wine-build --no-install
-        ;;
-      install|reinstall)
-        wine-build --install
-        ;;
-      *)
-        if [ ! -d "$WINEPREFIX" ]; then
-          wine-build --install
-        fi
-        wine "$COMMAND"
-        ;;
-    esac
-
-    wineserver -k
-  '';
-
   buildCommand = ''
-    mkdir -p $out/bin
-    echo -n "$text" > $out/bin/${pname}
-    chmod +x $out/bin/${pname}
+    mkdir $out
+    ln -s ${runner}/bin $out/bin
+
     runHook postInstall
   '';
 
