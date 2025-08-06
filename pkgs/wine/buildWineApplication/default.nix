@@ -70,7 +70,15 @@ let
         winetricks --unattended ${tricksString}
       ''
       + ''
-        wine ${installer}
+        COMMAND="''${1:-install}"
+
+        case "$COMMAND" in
+          --install)
+            wine ${installer}
+            ;;
+          --no-install|*)
+            ;;
+        esac
       '';
     };
 
@@ -100,8 +108,11 @@ writeWineApplication {
     COMMAND="''${1:-run}"
 
     case "$COMMAND" in
-      build|update)
-        wine-build
+      build|rebuild|update)
+        wine-build --no-install
+        ;;
+      install|reinstall)
+        wine-build --install
         ;;
       run)
         if [ ! -d "$WINEPREFIX" ]; then
