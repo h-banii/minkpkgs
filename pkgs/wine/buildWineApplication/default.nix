@@ -1,7 +1,7 @@
 {
   writeShellApplication,
   lib,
-  wine,
+  wineWowPackages,
   winetricks,
   ...
 }:
@@ -10,7 +10,7 @@
   version,
   installer,
 
-  winePackage ? wine,
+  winePackage ? wineWowPackages.staging,
   winetricksPackage ? winetricks,
 
   withCjk ? false,
@@ -79,7 +79,7 @@ let
   runner = writeWineApplication {
     name = "wine-run";
 
-    runtimeInputs = [ wine ];
+    runtimeInputs = [ winePackage ];
 
     text = ''
       printf "\e[1mCreating wine prefix...\e[0m\n"
