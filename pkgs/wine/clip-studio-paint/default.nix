@@ -2,9 +2,10 @@
   buildWineApplication,
   fetchurl,
   wineWowPackages,
+  makeDesktopItem,
   ...
 }:
-buildWineApplication {
+buildWineApplication rec {
   pname = "clip-studio-paint";
   version = "1.13.2";
 
@@ -21,4 +22,17 @@ buildWineApplication {
   };
 
   executable = ''C:\Program Files\CELSYS\CLIP STUDIO 1.5\CLIP STUDIO PAINT\CLIPStudioPaint.exe'';
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = pname;
+      exec = pname;
+      icon = fetchurl {
+        url = "https://www.clipstudio.net/view/img/common/favicon.ico";
+        hash = "sha256-VKeb/CS3Jh/NW2/oa+lfQStJkwAf6+IKOQuuMNcYSGg=";
+      };
+      desktopName = "Clip Studio Paint";
+      startupWMClass = "clipstudiopaint.exe";
+    })
+  ];
 }
