@@ -17,7 +17,7 @@
   extraTricks ? [ ],
 
   use32Bit ? false,
-  windowsVersion ? null,
+  windowsVersion ? "win10",
   wineprefix ? "$HOME/.nix-mink-wine/${pname}-${version}",
 }:
 let
@@ -64,8 +64,6 @@ let
         printf "\e[1mCreating wine prefix...\e[0m\n"
         mkdir -pv "$WINEPREFIX"
         wineboot -u
-      ''
-      + lib.optionalString (windowsVersion != null) ''
         winecfg /v ${windowsVersion}
       ''
       + lib.optionalString (tricks != [ ]) ''
