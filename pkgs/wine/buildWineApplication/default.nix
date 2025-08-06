@@ -7,6 +7,7 @@
 }:
 {
   pname,
+  installer,
 
   winePackage ? wine,
   winetricksPackage ? winetricks,
@@ -62,11 +63,14 @@ let
         printf "\e[1mCreating wine prefix at %s...\e[0m\n" "$WINEPREFIX"
         wineboot -u
       ''
+      + lib.optionalString (windowsVersion != null) ''
+        winecfg /v ${windowsVersion}
+      ''
       + lib.optionalString (tricks != [ ]) ''
         winetricks --unattended ${tricksString}
       ''
-      + lib.optionalString (windowsVersion != null) ''
-        winecfg /v ${windowsVersion}
+      + ''
+        wine ${installer}
       '';
     };
 
