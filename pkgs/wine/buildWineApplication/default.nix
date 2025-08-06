@@ -137,9 +137,7 @@ in
 stdenvNoCC.mkDerivation {
   inherit pname version desktopItems;
 
-  nativeBuildInputs = [
-    copyDesktopItems
-  ];
+  nativeBuildInputs = lib.optional (desktopItems != [ ]) copyDesktopItems;
 
   buildCommand = ''
     mkdir $out
