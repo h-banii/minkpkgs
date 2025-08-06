@@ -38,7 +38,7 @@ buildWineApplication rec {
     })
     (makeDesktopItem {
       name = "clip-studio";
-      exec = ''${pname} C:\Program Files\CELSYS\CLIP STUDIO 1.5\CLIP STUDIO\CLIPStudio.exe'';
+      exec = ''${pname} "C:/Program Files/CELSYS/CLIP STUDIO 1.5/CLIP STUDIO/CLIPStudio.exe"'';
       icon = fetchurl {
         url = "https://assets.clip-studio.com/favicon.ico";
         hash = "sha256-YESOiN4bEIlheWbDg7iNhjIPUmbeRyVDTUqS+9sa+qk=";
