@@ -26,6 +26,8 @@
   use32Bit ? false,
   windowsVersion ? "win10",
   wineprefix ? "$HOME/.nix-mink-wine/${pname}-${version}",
+
+  derivationArgs ? { },
 }:
 let
   writeWineApplication =
@@ -140,3 +142,4 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 }
+// derivationArgs
