@@ -1,7 +1,10 @@
 {
   lib,
+  stdenvNoCC,
+  runtimeShell,
   writeShellApplication,
   makeDesktopItem,
+  copyDesktopItems,
   wineWowPackages,
   winetricks,
   ...
@@ -93,19 +96,20 @@ let
       '';
     };
 in
-writeWineApplication {
-  name = pname;
+stdenvNoCC.mkDerivation {
+  inherit pname version desktopItems;
 
-  runtimeInputs = [
-    builder
-    winePackage
+  nativeBuildInputs = [
+    copyDesktopItems
   ];
 
-  derivationArgs = {
-    inherit desktopItems;
-  };
+  buildInputs = [
+    builder
+  ];
 
   text = ''
+    #!${runtimeShell}
+
     for var in WINEPREFIX WINEARCH; do
       printf '\e[1;35m%s: \e[0m%s\n' "$var" "''${!var:-""}"
     done
@@ -128,5 +132,11 @@ writeWineApplication {
     esac
 
     wineserver -k
+  '';
+
+  buildCommand = ''
+    mkdir -p $out/bin
+    echo -n "$text" > $out/bin/${pname}
+    runHook postInstall
   '';
 }
