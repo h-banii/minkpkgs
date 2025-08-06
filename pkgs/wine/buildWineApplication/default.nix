@@ -7,6 +7,7 @@
 }:
 {
   pname,
+  version,
   installer,
 
   winePackage ? wine,
@@ -17,7 +18,7 @@
 
   use32Bit ? false,
   windowsVersion ? null,
-  wineprefix ? "$HOME/.nix-mink-wine/${pname}",
+  wineprefix ? "$HOME/.nix-mink-wine/${pname}-${version}",
 }:
 let
   writeWineApplication =
