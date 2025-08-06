@@ -1,4 +1,4 @@
 { callPackage, ... }:
 {
-  buildWineApplication = callPackage ./wine/buildWineApplication { };
+  wine = callPackage ./wine { };
 }
