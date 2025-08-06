@@ -1,6 +1,7 @@
 {
-  writeShellApplication,
   lib,
+  writeShellApplication,
+  makeDesktopItem,
   wineWowPackages,
   winetricks,
   ...
@@ -10,6 +11,8 @@
   version,
   installer,
   executable ? "explorer",
+
+  desktopItems ? [ ],
 
   winePackage ? wineWowPackages.staging,
   winetricksPackage ? winetricks,
@@ -27,13 +30,17 @@ let
       WINEPREFIX = wineprefix;
       WINEARCH = if use32Bit then "win32" else "win64";
     in
-    args:
+    {
+      derivationArgs ? { },
+      ...
+    }@args:
     writeShellApplication (
       {
         derivationArgs = {
           allowSubstitutes = false;
           preferLocalBuild = true;
-        };
+        }
+        // derivationArgs;
 
         runtimeEnv = {
           inherit WINEARCH;
@@ -45,7 +52,10 @@ let
         ''
         + args.text;
       }
-      // (builtins.removeAttrs args [ "text" ])
+      // (builtins.removeAttrs args [
+        "text"
+        "derivationArgs"
+      ])
     );
 
   builder =
@@ -90,6 +100,10 @@ writeWineApplication {
     builder
     winePackage
   ];
+
+  derivationArgs = {
+    inherit desktopItems;
+  };
 
   text = ''
     for var in WINEPREFIX WINEARCH; do
