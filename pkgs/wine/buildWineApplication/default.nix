@@ -99,11 +99,19 @@ writeWineApplication {
       printf '\e[1;35m%s: \e[0m%s\n' "$var" "''${!var:-""}"
     done
 
-    if [ ! -d "$WINEPREFIX" ]; then
-      wine-build
-    fi
+    COMMAND="''${1:-run}"
 
-    wine-run
+    case "$COMMAND" in
+      build|update)
+        wine-build
+        ;;
+      run)
+        if [ ! -d "$WINEPREFIX" ]; then
+          wine-build
+        fi
+        wine-run
+        ;;
+    esac
 
     wineserver -k
   '';
