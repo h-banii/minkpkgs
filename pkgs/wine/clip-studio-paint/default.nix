@@ -25,14 +25,26 @@ buildWineApplication rec {
 
   desktopItems = [
     (makeDesktopItem {
-      name = pname;
+      name = "clip-studio-paint";
       exec = pname;
       icon = fetchurl {
         url = "https://www.clipstudio.net/view/img/common/favicon.ico";
         hash = "sha256-VKeb/CS3Jh/NW2/oa+lfQStJkwAf6+IKOQuuMNcYSGg=";
       };
-      desktopName = "Clip Studio Paint";
+      desktopName = "CLIP STUDIO PAINT";
       startupWMClass = "clipstudiopaint.exe";
+      categories = [ "Graphics" ];
+    })
+    (makeDesktopItem {
+      name = "clip-studio";
+      exec = ''${pname} C:\Program Files\CELSYS\CLIP STUDIO 1.5\CLIP STUDIO\CLIPStudio.exe'';
+      icon = fetchurl {
+        url = "https://assets.clip-studio.com/favicon.ico";
+        hash = "sha256-YESOiN4bEIlheWbDg7iNhjIPUmbeRyVDTUqS+9sa+qk=";
+      };
+      desktopName = "CLIP STUDIO";
+      startupWMClass = "clipstudio.exe";
+      categories = [ "Graphics" ];
     })
   ];
 }
