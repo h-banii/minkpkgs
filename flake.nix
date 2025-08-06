@@ -122,6 +122,7 @@
             };
           inherit assets;
         }
+        // pkgs.callPackage ./pkgs { }
       );
 
       nixosModules.default = import ./modules/nixos {
