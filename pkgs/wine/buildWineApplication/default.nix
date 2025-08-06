@@ -104,5 +104,7 @@ writeWineApplication {
     fi
 
     wine-run
+
+    wineserver -k
   '';
 }
