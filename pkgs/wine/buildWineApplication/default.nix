@@ -27,6 +27,7 @@
   windowsVersion ? "win10",
   wineprefix ? "$HOME/.nix-mink-wine/${pname}-${version}",
 
+  meta,
   derivationArgs ? { },
 }:
 let
@@ -141,5 +142,10 @@ stdenvNoCC.mkDerivation {
     echo -n "$text" > $out/bin/${pname}
     runHook postInstall
   '';
+
+  meta = {
+    mainProgram = pname;
+  }
+  // meta;
 }
 // derivationArgs
