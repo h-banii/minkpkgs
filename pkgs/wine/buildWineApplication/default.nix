@@ -60,7 +60,8 @@ let
       ];
 
       text = ''
-        printf "\e[1mCreating wine prefix at %s...\e[0m\n" "$WINEPREFIX"
+        printf "\e[1mCreating wine prefix...\e[0m\n"
+        mkdir -pv "$WINEPREFIX"
         wineboot -u
       ''
       + lib.optionalString (windowsVersion != null) ''
