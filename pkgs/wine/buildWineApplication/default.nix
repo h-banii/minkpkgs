@@ -110,7 +110,7 @@ writeWineApplication {
       printf '\e[1;35m%s: \e[0m%s\n' "$var" "''${!var:-""}"
     done
 
-    COMMAND="''${1:-run}"
+    COMMAND="''${1:-${executable}}"
 
     case "$COMMAND" in
       build|rebuild|update)
@@ -119,11 +119,11 @@ writeWineApplication {
       install|reinstall)
         wine-build --install
         ;;
-      run)
+      *)
         if [ ! -d "$WINEPREFIX" ]; then
           wine-build --install
         fi
-        wine '${executable}'
+        wine "$COMMAND"
         ;;
     esac
 
