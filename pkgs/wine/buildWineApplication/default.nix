@@ -13,6 +13,7 @@
   pname,
   version,
   installer,
+  installerFlags ? "",
   executable ? "explorer",
 
   desktopItems ? [ ],
@@ -99,11 +100,11 @@ let
             ${buildScript}
             ;;
           --install)
-            wine ${installer}
+            wine ${installer} ${installerFlags}
             ;;
           *)
             ${buildScript}
-            wine ${installer}
+            wine ${installer} ${installerFlags}
             ;;
         esac
       '';
