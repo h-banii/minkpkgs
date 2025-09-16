@@ -19,7 +19,7 @@
 
   environment = {
     systemPackages = with pkgs; [
-      libsForQt5.kpmcore
+      kdePackages.kpmcore
       calamares-nixos
       calamares-nixos-extensions
       glibcLocales
