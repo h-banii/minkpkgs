@@ -9,7 +9,7 @@
     minkpkgs.homeManagerModules.default
   ];
 
-  # Linux Mink home options
+  # MikanOS home options
   # home-config #
 
   # User packages

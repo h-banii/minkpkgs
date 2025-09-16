@@ -109,7 +109,7 @@ writeShellApplication rec {
 
     printf "Generating NixOS configuration...\n"
     nixos-generate-config --dir "$OUTPUT_DIRECTORY/system/desktop" --root "$OUTPUT_DIRECTORY"
-    printf "Generating Linux Mink configuration...\n"
+    printf "Generating MikanOS configuration...\n"
     cp -r --no-preserve=mode,ownership,links -L "${configPath}"/* "$OUTPUT_DIRECTORY"
   '';
 }

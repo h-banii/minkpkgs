@@ -1,7 +1,7 @@
-# Linux Mink (WIP)
+# MikanOS (WIP)
 
-NixOS configuration files for Linux Mink. Check the
-[documentation](https://h-banii.github.io/LinuxMink/)!
+NixOS configuration files for MikanOS. Check the
+[documentation](https://h-banii.github.io/minkpkgs/)!
 
 https://github.com/user-attachments/assets/8faacc68-b6c7-47a0-92ca-e75077e7fb54
 
@@ -21,24 +21,24 @@ https://github.com/user-attachments/assets/8faacc68-b6c7-47a0-92ca-e75077e7fb54
 
 ```console
 $ export QEMU_OPTS='-m 4G -device virtio-vga-gl -display gtk,gl=on'
-$ nix run github:h-banii/LinuxMink#livecd.vm
+$ nix run github:h-banii/minkpkgs#livecd.vm
 ```
 
 #### ISO Image
 
 ```sh
-nix build github:h-banii/LinuxMink#livecd.isoImage
+nix build github:h-banii/minkpkgs#livecd.isoImage
 ```
 
 ### Graphical Installer (WIP)
 
 ### NixOS Module
 
-https://h-banii.github.io/LinuxMink/modules/nixos/
+https://h-banii.github.io/minkpkgs/modules/nixos/
 
 ### Home Manager Module
 
-https://h-banii.github.io/LinuxMink/modules/home-manager/
+https://h-banii.github.io/minkpkgs/modules/home-manager/
 
 ## MikanTheMink
 

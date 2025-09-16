@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    minkpkgs.url = "github:h-banii/LinuxMink";
+    minkpkgs.url = "github:h-banii/minkpkgs";
   };
 
   outputs =

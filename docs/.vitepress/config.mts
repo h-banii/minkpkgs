@@ -2,9 +2,9 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Linux Mink",
-  description: "Documentation",
-  base: "/LinuxMink/",
+  title: "MikanOS",
+  description: "minkpkgs",
+  base: "/minkpkgs/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [{ text: "Home", link: "/" }],
@@ -43,7 +43,7 @@ export default defineConfig({
       { icon: "twitter", link: "https://www.twitter.com/MikanTheMink" },
       {
         icon: "github",
-        link: "https://github.com/h-banii/LinuxMink/tree/stable",
+        link: "https://github.com/h-banii/minkpkgs/tree/stable",
       },
     ],
   },

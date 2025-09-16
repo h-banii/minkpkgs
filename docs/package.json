@@ -1,7 +1,7 @@
 {
   "name": "mikan-docs",
   "version": "1.0.0",
-  "description": "Web documentation for Linux Mink",
+  "description": "Web documentation for MikanOS",
   "main": " ",
   "scripts": {
     "dev": "vitepress dev",

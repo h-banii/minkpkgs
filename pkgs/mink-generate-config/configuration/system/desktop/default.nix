@@ -13,7 +13,7 @@
     ./hardware-configuration.nix
   ];
 
-  # Linux Mink system options
+  # MikanOS system options
   # system-config #
 
   # System packages

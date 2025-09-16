@@ -6,7 +6,7 @@
     minkpkgs.homeManagerModules.default
   ];
 
-  linuxMink = {
+  mikanos = {
     system.fetch.fastfetch.enable = true;
     programs = {
       startup = [

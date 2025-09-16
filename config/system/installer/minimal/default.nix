@@ -15,7 +15,7 @@
 
   isoImage.edition = "minimal";
 
-  linuxMink = {
+  mikanos = {
     system.branding.enable = true;
     system.install-tools.enable = true;
   };

@@ -1,6 +1,6 @@
 # Introduction
 
-Linux Mink is a NixOS based distribution themed around MikanTheMink.
+MikanOS is a NixOS based distribution themed around MikanTheMink.
 
 ## MikanTheMink
 

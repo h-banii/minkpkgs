@@ -1,5 +1,5 @@
 {
-  "linuxMink.display.wayland.hyprland.config": {
+  "mikanos.display.wayland.hyprland.config": {
     "declarations": [],
     "default": {
       "_type": "literalExpression",
@@ -10,22 +10,22 @@
       "_type": "literalExpression",
       "text": "{\n  decoration = {\n    shadow_offset = \"0 5\";\n    \"col.shadow\" = \"rgba(00000099)\";\n  };\n\n  \"$mod\" = \"SUPER\";\n\n  bindm = [\n    # mouse movements\n    \"$mod, mouse:272, movewindow\"\n    \"$mod, mouse:273, resizewindow\"\n    \"$mod ALT, mouse:272, resizewindow\"\n  ];\n}\n"
     },
-    "loc": ["linuxMink", "display", "wayland", "hyprland", "config"],
+    "loc": ["mikanos", "display", "wayland", "hyprland", "config"],
     "readOnly": false,
     "type": "Hyprland configuration value"
   },
-  "linuxMink.display.wayland.hyprland.enable": {
+  "mikanos.display.wayland.hyprland.enable": {
     "declarations": [],
     "description": "Whether to enable Hyprland config.",
     "example": {
       "_type": "literalExpression",
       "text": "true"
     },
-    "loc": ["linuxMink", "display", "wayland", "hyprland", "enable"],
+    "loc": ["mikanos", "display", "wayland", "hyprland", "enable"],
     "readOnly": false,
     "type": "boolean"
   },
-  "linuxMink.display.wayland.hyprland.hyprpaper.enable": {
+  "mikanos.display.wayland.hyprland.hyprpaper.enable": {
     "declarations": [],
     "default": {
       "_type": "literalExpression",
@@ -33,7 +33,7 @@
     },
     "description": "Whether to enable Hyprpaper (wallpaper).",
     "loc": [
-      "linuxMink",
+      "mikanos",
       "display",
       "wayland",
       "hyprland",
@@ -43,7 +43,7 @@
     "readOnly": false,
     "type": "boolean"
   },
-  "linuxMink.programs.enable": {
+  "mikanos.programs.enable": {
     "declarations": [],
     "default": {
       "_type": "literalExpression",
@@ -54,11 +54,11 @@
       "_type": "literalExpression",
       "text": "true"
     },
-    "loc": ["linuxMink", "programs", "enable"],
+    "loc": ["mikanos", "programs", "enable"],
     "readOnly": false,
     "type": "boolean"
   },
-  "linuxMink.programs.streaming.enable": {
+  "mikanos.programs.streaming.enable": {
     "declarations": [],
     "default": {
       "_type": "literalExpression",
@@ -69,11 +69,11 @@
       "_type": "literalExpression",
       "text": "true"
     },
-    "loc": ["linuxMink", "programs", "streaming", "enable"],
+    "loc": ["mikanos", "programs", "streaming", "enable"],
     "readOnly": false,
     "type": "boolean"
   },
-  "linuxMink.programs.streaming.obs-studio.enable": {
+  "mikanos.programs.streaming.obs-studio.enable": {
     "declarations": [],
     "default": {
       "_type": "literalExpression",
@@ -84,11 +84,11 @@
       "_type": "literalExpression",
       "text": "true"
     },
-    "loc": ["linuxMink", "programs", "streaming", "obs-studio", "enable"],
+    "loc": ["mikanos", "programs", "streaming", "obs-studio", "enable"],
     "readOnly": false,
     "type": "boolean"
   },
-  "linuxMink.programs.streaming.obs-studio.plugins": {
+  "mikanos.programs.streaming.obs-studio.plugins": {
     "declarations": [],
     "default": {
       "_type": "literalExpression",
@@ -99,7 +99,7 @@
       "_type": "literalExpression",
       "text": "[ pkgs.obs-studio-plugins.wlrobs ]"
     },
-    "loc": ["linuxMink", "programs", "streaming", "obs-studio", "plugins"],
+    "loc": ["mikanos", "programs", "streaming", "obs-studio", "plugins"],
     "readOnly": false,
     "type": "list of package"
   }

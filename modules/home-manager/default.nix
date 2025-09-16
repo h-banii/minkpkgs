@@ -26,7 +26,7 @@ let
     };
 
   moduleArgs = initialModuleArgs // {
-    modulePrefix = [ "linuxMink" ];
+    modulePrefix = [ "mikanos" ];
     rootPath = ./.;
     modulePath = [ ];
     inherit homeManagerModule;

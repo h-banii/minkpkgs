@@ -58,7 +58,7 @@
       };
     };
 
-  linuxMink = {
+  mikanos = {
     system.branding.enable = true;
   };
 }

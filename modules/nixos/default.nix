@@ -4,7 +4,7 @@
   ...
 }@initialModuleArgs:
 let
-  base = "linuxMink";
+  base = "mikanos";
   moduleArgs = initialModuleArgs // {
     modulePrefix = [ base ];
     rootPath = ./.;

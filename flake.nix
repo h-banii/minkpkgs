@@ -24,8 +24,8 @@
       pkgsFor = forAllSystems (system: nixpkgs.legacyPackages.${system});
       assetsFor = forAllSystems (system: pkgsFor.${system}.callPackage ./assets { });
       release = {
-        distroName = "Linux Mink";
-        distroId = "linux-mink";
+        distroName = "MikanOS";
+        distroId = "mikanos";
       };
     in
     {

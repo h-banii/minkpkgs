@@ -16,7 +16,7 @@
 
   isoImage.edition = "livecd";
 
-  linuxMink = {
+  mikanos = {
     system.branding.enable = true;
     greeter.enable = true;
     display.wayland = {
