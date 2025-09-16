@@ -44,8 +44,8 @@
         bind = $mod, Enter, exec, calamares
         bind = $mod, T, exec, foot
         bind = $mod, C, killactive
-        bind = $mod, mouse:272, movewindow
-        bind = $mod, mouse:273, resizewindow
+        bindm = $mod, mouse:272, movewindow
+        bindm = $mod, mouse:273, resizewindow
       '';
     in
     {
