@@ -3,6 +3,7 @@
     minkpkgs.url = "path:../.";
     vue-nix-manual = {
       url = "github:h-banii/vue-nix-manual";
+      inputs.nixpkgs.follows = "minkpkgs/nixpkgs";
     };
   };
 
