@@ -8,6 +8,7 @@
 
   outputs =
     {
+      self,
       minkpkgs,
       vue-nix-manual,
       systems,
@@ -30,6 +31,34 @@
             vue-nix-manual = vue-nix-manual.packages.${system}.default;
             home-manager-options = homeManagerOptionsDoc.optionsJSON;
             nixos-options = nixosOptionsDoc.optionsJSON;
+          };
+        }
+      );
+
+      legacyPackages = forAllSystems (
+        system:
+        let
+          pkgs = pkgsFor.${system};
+          base = "minkpkgs";
+        in
+        {
+          webserver = pkgs.symlinkJoin {
+            name = "mikan-docs-webserver";
+            meta.mainProgram = "http-server";
+            nativeBuildInputs = [ pkgs.makeWrapper ];
+            paths = with pkgs; [
+              http-server
+              (pkgs.linkFarm "" [
+                {
+                  name = "public/${base}";
+                  path = self.packages.${system}.default;
+                }
+              ])
+            ];
+            postBuild = ''
+              wrapProgram $out/bin/http-server \
+                --add-flags "$out/public"
+            '';
           };
         }
       );
