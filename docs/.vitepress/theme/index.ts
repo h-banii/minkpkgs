@@ -2,7 +2,7 @@
 import { h } from "vue";
 import type { Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme";
-import OptionsDoc from "./components/OptionsDoc.vue";
+import VueNixManual from "vue-nix-manual";
 import "./style.css";
 
 export default {
@@ -13,7 +13,6 @@ export default {
     });
   },
   enhanceApp({ app }) {
-    app.component("OptionsDoc", OptionsDoc);
-    // ...
+    app.use(VueNixManual);
   },
 } satisfies Theme;
