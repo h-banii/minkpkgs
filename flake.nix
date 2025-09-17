@@ -29,37 +29,6 @@
       };
     in
     {
-      packages = forAllSystems (
-        system:
-        let
-          pkgs = pkgsFor.${system};
-          nixosOptionsJSON = self.legacyPackages.${system}.nixosOptionsDoc.optionsJSON;
-          homeManagerOptionsJSON = self.legacyPackages.${system}.homeManagerOptionsDoc.optionsJSON;
-          docs-flake = (import ./docs/flake.nix).outputs {
-            inherit nixpkgs;
-            inherit systems;
-          };
-        in
-        {
-          docs = pkgs.symlinkJoin {
-            name = "mikan-docs";
-            paths = [
-              docs-flake.packages.${system}.default
-              (pkgs.linkFarm "mikan-modules-docs" [
-                {
-                  name = "nixos-options.json";
-                  path = "${nixosOptionsJSON}/share/doc/nixos/options.json";
-                }
-                {
-                  name = "home-manager-options.json";
-                  path = "${homeManagerOptionsJSON}/share/doc/nixos/options.json";
-                }
-              ])
-            ];
-          };
-        }
-      );
-
       legacyPackages = forAllSystems (
         system:
         let
