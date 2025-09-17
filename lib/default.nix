@@ -98,8 +98,7 @@
         args
         // {
           modulePath =
-            modulePath
-            ++ lib.strings.splitString "/" (builtins.replaceStrings [ ".nix" ] [ "" ] fileName);
+            modulePath ++ lib.strings.splitString "/" (builtins.replaceStrings [ ".nix" ] [ "" ] fileName);
         }
       );
   };
