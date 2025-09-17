@@ -1,0 +1,104 @@
+{
+  "mikanos.display.wayland.hyprland.enable": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "false"
+    },
+    "description": "Whether to enable Hyprland.",
+    "example": {
+      "_type": "literalExpression",
+      "text": "true"
+    },
+    "loc": [
+      "mikanos",
+      "display",
+      "wayland",
+      "hyprland",
+      "enable"
+    ],
+    "readOnly": false,
+    "type": "boolean"
+  },
+  "mikanos.display.wayland.uwsm.enable": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "false"
+    },
+    "description": "Whether to enable UWSM (Universal Wayland Session Manager).",
+    "example": {
+      "_type": "literalExpression",
+      "text": "true"
+    },
+    "loc": [
+      "mikanos",
+      "display",
+      "wayland",
+      "uwsm",
+      "enable"
+    ],
+    "readOnly": false,
+    "type": "boolean"
+  },
+  "mikanos.greeter.enable": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "false"
+    },
+    "description": "Whether to enable custom greeter.",
+    "example": {
+      "_type": "literalExpression",
+      "text": "true"
+    },
+    "loc": [
+      "mikanos",
+      "greeter",
+      "enable"
+    ],
+    "readOnly": false,
+    "type": "boolean"
+  },
+  "mikanos.system.branding.enable": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "false"
+    },
+    "description": "Whether to set /etc/os-release",
+    "example": {
+      "_type": "literalExpression",
+      "text": "true"
+    },
+    "loc": [
+      "mikanos",
+      "system",
+      "branding",
+      "enable"
+    ],
+    "readOnly": false,
+    "type": "boolean"
+  },
+  "mikanos.system.install-tools.enable": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "false"
+    },
+    "description": "Whether to modify NixOS install tools (nixos-generate-config) to\ngenerate a custom initial configuration for MikanOS.\n\nThis is useful during installation.\n\nSee nixos/modules/installer/tools/tools.nix\n",
+    "example": {
+      "_type": "literalExpression",
+      "text": "true"
+    },
+    "loc": [
+      "mikanos",
+      "system",
+      "install-tools",
+      "enable"
+    ],
+    "readOnly": false,
+    "type": "boolean"
+  }
+}
+

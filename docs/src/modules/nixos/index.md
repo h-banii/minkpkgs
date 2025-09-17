@@ -1,3 +1,7 @@
+<script setup>
+import options from "./options.json";
+</script>
+
 # NixOS Module
 
-<SearchOptions file="@module@" />
+<SearchOptions :options="options" :filters="[]" />

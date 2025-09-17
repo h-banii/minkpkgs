@@ -21,11 +21,8 @@ buildNpmPackage {
   ] (lib.cleanSource ../.);
 
   patchPhase = ''
-    substituteInPlace src/modules/home-manager/index.md \
-      --replace-fail "@module@" "${home-manager-options}/share/doc/nixos/options.json"
-
-    substituteInPlace src/modules/nixos/index.md \
-      --replace-fail "@module@" "${nixos-options}/share/doc/nixos/options.json"
+    ln -sf "${home-manager-options}/share/doc/nixos/options.json" "src/modules/home-manager/options.json"
+    ln -sf "${nixos-options}/share/doc/nixos/options.json" "src/modules/nixos/options.json"
   '';
 
   # TODO: Figure out a better fix

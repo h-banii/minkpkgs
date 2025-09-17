@@ -1,0 +1,168 @@
+{
+  "mikanos.display.wayland.hyprland.config": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "{ }"
+    },
+    "description": "Hyprland configuration using Nix\n\nSee https://wki.hypr.land/Configuring",
+    "example": {
+      "_type": "literalExpression",
+      "text": "{\n  decoration = {\n    shadow_offset = \"0 5\";\n    \"col.shadow\" = \"rgba(00000099)\";\n  };\n\n  \"$mod\" = \"SUPER\";\n\n  bindm = [\n    # mouse movements\n    \"$mod, mouse:272, movewindow\"\n    \"$mod, mouse:273, resizewindow\"\n    \"$mod ALT, mouse:272, resizewindow\"\n  ];\n}\n"
+    },
+    "loc": [
+      "mikanos",
+      "display",
+      "wayland",
+      "hyprland",
+      "config"
+    ],
+    "readOnly": false,
+    "type": "Hyprland configuration value"
+  },
+  "mikanos.display.wayland.hyprland.enable": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "false"
+    },
+    "description": "Whether to enable Hyprland config.",
+    "example": {
+      "_type": "literalExpression",
+      "text": "true"
+    },
+    "loc": [
+      "mikanos",
+      "display",
+      "wayland",
+      "hyprland",
+      "enable"
+    ],
+    "readOnly": false,
+    "type": "boolean"
+  },
+  "mikanos.display.wayland.hyprland.hyprpaper.enable": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "false"
+    },
+    "description": "Whether to enable Hyprpaper (wallpaper).",
+    "example": {
+      "_type": "literalExpression",
+      "text": "true"
+    },
+    "loc": [
+      "mikanos",
+      "display",
+      "wayland",
+      "hyprland",
+      "hyprpaper",
+      "enable"
+    ],
+    "readOnly": false,
+    "type": "boolean"
+  },
+  "mikanos.programs.startup": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "[ ]"
+    },
+    "description": "Startup programs",
+    "example": {
+      "_type": "literalExpression",
+      "text": "[ \"firefox https://example.com\" \"obs\" ]"
+    },
+    "loc": [
+      "mikanos",
+      "programs",
+      "startup"
+    ],
+    "readOnly": false,
+    "type": "list of string"
+  },
+  "mikanos.streaming.obs-studio.enable": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "false"
+    },
+    "description": "Whether to enable OBS (Open Broadcaster Software).",
+    "example": {
+      "_type": "literalExpression",
+      "text": "true"
+    },
+    "loc": [
+      "mikanos",
+      "streaming",
+      "obs-studio",
+      "enable"
+    ],
+    "readOnly": false,
+    "type": "boolean"
+  },
+  "mikanos.streaming.obs-studio.plugins": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "[\n  <derivation wlrobs-unstable-2024-12-24>\n  <derivation obs-pipewire-audio-capture-1.2.0>\n  <derivation obs-vaapi-0.4.2>\n  <derivation obs-vkcapture-1.5.3>\n]"
+    },
+    "description": "Optional OBS plugins.",
+    "example": {
+      "_type": "literalExpression",
+      "text": "[ pkgs.obs-studio-plugins.wlrobs ]"
+    },
+    "loc": [
+      "mikanos",
+      "streaming",
+      "obs-studio",
+      "plugins"
+    ],
+    "readOnly": false,
+    "type": "list of package"
+  },
+  "mikanos.system.fetch.fastfetch.enable": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "false"
+    },
+    "description": "Whether to enable Whether to enable fastfetch.",
+    "example": {
+      "_type": "literalExpression",
+      "text": "true"
+    },
+    "loc": [
+      "mikanos",
+      "system",
+      "fetch",
+      "fastfetch",
+      "enable"
+    ],
+    "readOnly": false,
+    "type": "boolean"
+  },
+  "mikanos.system.fetch.fastfetch.settings": {
+    "declarations": [],
+    "default": {
+      "_type": "literalExpression",
+      "text": "{ }"
+    },
+    "description": "Fastfetch settings",
+    "example": {
+      "_type": "literalExpression",
+      "text": "{\n  display = {\n    size = {\n      binaryPrefix = \"si\";\n    };\n    color = \"blue\";\n    separator = \"  \";\n  };\n  modules = [\n    {\n      type = \"datetime\";\n      key = \"Date\";\n      format = \"{1}-{3}-{11}\";\n    }\n    {\n      type = \"datetime\";\n      key = \"Time\";\n      format = \"{14}:{17}:{20}\";\n    }\n    \"break\"\n    \"player\"\n    \"media\"\n  ];\n}\n"
+    },
+    "loc": [
+      "mikanos",
+      "system",
+      "fetch",
+      "fastfetch",
+      "settings"
+    ],
+    "readOnly": false,
+    "type": "JSON value"
+  }
+}
+
