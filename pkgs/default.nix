@@ -8,5 +8,4 @@
     nixosOptionsJSON = minkpkgs.legacyPackages.${system}.nixosOptionsDoc.optionsJSON;
     homeManagerOptionsJSON = minkpkgs.legacyPackages.${system}.homeManagerOptionsDoc.optionsJSON;
   };
-  wine = callPackage ./wine { };
 }
